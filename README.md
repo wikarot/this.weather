@@ -14,3 +14,7 @@ Datos a mostrar:
     humedad
     vel del viento
     eventual alerta meteorilogica
+
+A futuro, arrastrar la tarjeta fuera del navegador, soltarla
+en el escritorio, y abirir una app de Electron equivalente en
+el mismo. (a modo de widget).
