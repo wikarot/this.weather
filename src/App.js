@@ -291,7 +291,9 @@ class App extends Component {
         </main>
         <footer>
           <div id="footer_box">
-            <h1><span>this</span>.Weather( );</h1>
+            <a href="http://wikarot.github.io/this.weather">
+              <h1><span>this</span>.Weather( );</h1>
+            </a>
             <div>
               <span>
                 <p>Copyright (c) 2019 - <a href="https://github.com/Wikarot"

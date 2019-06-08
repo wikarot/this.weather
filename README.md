@@ -17,12 +17,10 @@
 - Nubosidad.
 - Viento.
 
-----
-
 ### A futuro
 
-Generar un widget en el escritorio, app de Electron
-equivalente a la tarjeta deseada.
+- Generar un widget en el escritorio. (Electron app)
+- Mostrar cada ubicacion en un mapa sobre la tarjeta. (THREE.js)
 
 ----
 
@@ -34,6 +32,9 @@ equivalente a la tarjeta deseada.
 - React
 - SASS
 
+----
+
 ## Licencia
 
 MIT License.
+Copyright (c) 2019 - Wikarot.
