@@ -8,7 +8,7 @@ import ALL_LIST from './apis/all.json'
 import Notification from './components/Notification';
 
 const API_WEATHER = {
-  api: 'http://api.openweathermap.org/data/2.5/weather?q=',
+  api: 'https://api.openweathermap.org/data/2.5/weather?q=',
   key: '&appid=cdd659df7dc048884575b9451ddf1330',
   units: '&units=metric',
   lang: '&lang=es'
