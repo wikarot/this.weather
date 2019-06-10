@@ -258,17 +258,16 @@ body {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            /* div {
-              width: 100%;
-              display: flex;
+            align-content: center;
+            div {
+              margin: auto;
+              height: min-content;
+              width: max-content;
               .time {
-                padding: 6px 0;
-                color: $detail_c;
-                text-shadow: none;
                 margin: 0;
-                margin-left: 30px;
+                color: $grey_dark_light;
               }
-            } */
+            }
             .close,
             .refresh {
               background: transparent;
@@ -310,20 +309,37 @@ body {
       right: 0px;
       top: 8px;
       div {
-        animation: notification 2.5s 1 cubic-bezier(0.65, 0.05, 0.36, 1);
+        animation: notification 2.5s infinite cubic-bezier(0.65, 0.05, 0.36, 1);
         margin-left: auto;
         transform: translateX(calc(100% + 16px));
         p {
-          background-color: rgb(190, 230, 250);
-          border: 1px solid rgb(160, 190, 210);
           border-radius: 2px;
           box-shadow: $sh_out_big;
           box-sizing: border-box;
-          color: rgb(90, 140, 160);
           margin-right: 16px;
           margin-bottom: 8px;
           padding: 8px 16px;
-          width: max-content;
+        }
+      }
+      div.info {
+        p {
+          background-color: rgb(220, 244, 255);
+          border: 1px solid rgb(140, 190, 235);
+          color: rgb(40, 120, 160);
+        }
+      }
+      div.alert {
+        p {
+          background-color: rgb(255, 255, 244);
+          border: 1px solid rgb(220, 200, 80);
+          color: rgb(160, 120, 40);
+        }
+      }
+      div.error {
+        p {
+          background-color: rgb(255, 242, 242);
+          border: 1px solid rgb(235, 160, 140);
+          color: rgb(160, 80, 80);
         }
       }
     }
@@ -370,6 +386,36 @@ body {
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+}
+@media screen and (max-width: 1023px) and (min-width: 680px) {
+  body {
+    main {
+      padding: 16px;
+    }
+  }
+}
+@media screen and (max-width: 679px) {
+  body {
+    header {
+      #search_box {
+        margin: 0 auto;
+        input {
+          width: 100%;
+        }
+      }
+    }
+    main {
+      padding: 16px;
+    }
+    footer {
+      #footer_box {
+        flex-wrap: wrap;
       }
     }
   }

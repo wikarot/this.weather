@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class Notification extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class Notification extends Component {
 
   render() {
     return (
-      <div>
+      <div className={this.props.data.type}>
         <p>{this.props.data.msg}</p>
       </div>
     )

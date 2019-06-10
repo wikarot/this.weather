@@ -2,51 +2,60 @@ import React, { Component } from 'react'
 import place from '../svg/place.svg';
 import close from '../svg/close.svg';
 import refresh from '../svg/refresh.svg';
-import { not } from '../js/newConsole';
+/* import { not } from '../js/newConsole'; */
 
 export default class Card extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            updating: 'false',
-            updateTimer: undefined,
-            /* time: undefined,
-            timeTimer: undefined, */
-        }
+            /* updating: 'false',
+            updateTimer: undefined, */
+            time: '00:00',
+            timeTimer: undefined,
+        };
     }
 
     componentDidMount() {
         // Update timing, around 15min.
-        const t = (14 * 60000) + Math.round(Math.random() * 120000);
-        this.autoUpdate(t);
-        /* this.setState({ timeTimer: setInterval(this.getTime.bind(this), 1000) }); */
+        /* const t = (14 * 60000) + Math.round(Math.random() * 120000);
+        this.autoUpdate(t); */
+        this.setState({ timeTimer: setInterval(this.getTime.bind(this), 1000) });
     }
 
     componentWillUnmount() {
-        clearInterval(this.state.updateTimer);
+        /* clearInterval(this.state.updateTimer); */
         /* clearInterval(this.state.timeTimer); */
     }
 
-    /* getTime() {
-        let hh = new Date().getHours();
-        let mm = new Date().getMinutes();
-        let ss = new Date().getSeconds();
-        if (hh < 10) { hh = '0' + hh }
-        if (mm < 10) { mm = '0' + mm }
-        if (ss < 10) { ss = '0' + ss }
-        this.setState({
-            time: (hh + ':' + mm + ':' + ss)
-        });
-    } */
+    getTime() {
+        const OFFSET = ((this.props.data.timezone / 60) / 60);
+        const OFFSET_F = Math.floor(OFFSET);
+        let mm_off = 0;
 
-    autoUpdate(t) {
+        if (OFFSET_F !== OFFSET) mm_off = Math.floor((OFFSET - OFFSET_F) * 60);
+
+        let hh = new Date().getUTCHours() + OFFSET_F;
+        let mm = new Date().getUTCMinutes() + mm_off;
+
+        if (mm > 59) { hh = hh + 1; mm = mm - 60; }
+        if (hh > 23) hh = hh - 24;
+        if (hh < 10 && hh >= 0) hh = '0' + hh;
+        if (hh < 0) hh = 24 + hh;
+        if (mm < 10) mm = '0' + mm;
+
+        this.setState({
+            time: (hh + ':' + mm)
+        });
+    }
+
+    /* autoUpdate(t) {
         this.setState({
             updateTimer: setInterval(() => {
                 not(this.props.fullName + ': Actualizacion automatica...');
                 this.callForUpdate();
             }, t)
         });
-    }
+    } */
 
     componentDidUpdate() {
         if (this.state.updating === 'true') {
@@ -102,13 +111,13 @@ export default class Card extends Component {
                     <hr />
                     <div className="temp_box">
                         <p className="temp">
-                            {Math.round(DATA.temp)}°
+                            {DATA.temp}°
                         </p>
                         <p className="temp_max">
-                            <span>Max.</span>{Math.round(DATA.temp_max)}°
+                            <span>Max</span>{DATA.tempMax}°
                         </p>
                         <p className="temp_min">
-                            <span>Min.</span>{Math.round(DATA.temp_min)}°
+                            <span>Min</span>{DATA.tempMin}°
                         </p>
                     </div>
                     <hr />
@@ -145,16 +154,16 @@ export default class Card extends Component {
                     </div>
                     <hr />
                     <div className="control_box">
-                        {/* <div>
-                            <span className="time" aux="{this.state.time}">
-                                
-                            </span>
-                        </div> */}
                         <button className="refresh" onClick={this.callForUpdate.bind(this)}>
                             <span>
                                 <img src={refresh} alt="Actualizar" title="Actualizar" />
                             </span>
                         </button>
+                        <div>
+                            <span className="time">
+                                {this.state.time}
+                            </span>
+                        </div>
                         <button className="close" onClick={this.callForRemove.bind(this)}>
                             <span>
                                 <img src={close} alt="Cerrar" title="Cerrar" />

@@ -345,17 +345,23 @@ body main #card_box .card .content .control_box {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  /* div {
-              width: 100%;
-              display: flex;
-              .time {
-                padding: 6px 0;
-                color: $detail_c;
-                text-shadow: none;
-                margin: 0;
-                margin-left: 30px;
-              }
-            } */
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+body main #card_box .card .content .control_box div {
+  margin: auto;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+body main #card_box .card .content .control_box div .time {
+  margin: 0;
+  color: #b4b4b4;
 }
 
 body main #card_box .card .content .control_box .close,
@@ -411,28 +417,40 @@ body main #notification_box {
 }
 
 body main #notification_box div {
-  -webkit-animation: notification 2.5s 1 cubic-bezier(0.65, 0.05, 0.36, 1);
-          animation: notification 2.5s 1 cubic-bezier(0.65, 0.05, 0.36, 1);
+  -webkit-animation: notification 2.5s infinite cubic-bezier(0.65, 0.05, 0.36, 1);
+          animation: notification 2.5s infinite cubic-bezier(0.65, 0.05, 0.36, 1);
   margin-left: auto;
   -webkit-transform: translateX(calc(100% + 16px));
           transform: translateX(calc(100% + 16px));
 }
 
 body main #notification_box div p {
-  background-color: #bee6fa;
-  border: 1px solid #a0bed2;
   border-radius: 2px;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #5a8ca0;
   margin-right: 16px;
   margin-bottom: 8px;
   padding: 8px 16px;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+}
+
+body main #notification_box div.info p {
+  background-color: #dcf4ff;
+  border: 1px solid #8cbeeb;
+  color: #2878a0;
+}
+
+body main #notification_box div.alert p {
+  background-color: #fffff4;
+  border: 1px solid #dcc850;
+  color: #a07828;
+}
+
+body main #notification_box div.error p {
+  background-color: #fff2f2;
+  border: 1px solid #eba08c;
+  color: #a05050;
 }
 
 body footer {
@@ -497,6 +515,28 @@ body footer #footer_box div span p {
 body footer #footer_box div span p a {
   color: inherit;
   font-size: inherit;
+}
+
+@media screen and (max-width: 1023px) and (min-width: 680px) {
+  body main {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 679px) {
+  body header #search_box {
+    margin: 0 auto;
+  }
+  body header #search_box input {
+    width: 100%;
+  }
+  body main {
+    padding: 16px;
+  }
+  body footer #footer_box {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
 }
 
 @-webkit-keyframes card_updating {

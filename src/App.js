@@ -18,11 +18,11 @@ const PRELOAD_CITIES = [
   'Kingston,JM',          // america c
   'Alaska,US',            // america n
   'Amazonas,BR',          // america s
-  'McMurdo Station,AQ',   // antartida
+  /* 'McMurdo Station,AQ',   // antartida
   'Tokyo,JP',             // asia
   'Berlin,DE',            // europa
   'Sydney,AU',            // oceania
-  /* 'Cape Town,ZA',         // -africa
+  'Cape Town,ZA',         // -africa
   'Panama,PA',            // -america c
   'Ottawa,CA',            // -america n
   'Montevideo,UY',        // -america s
@@ -41,7 +41,7 @@ class App extends Component {
       cardList: [],
       predictionList: [],
       notificationList: [],
-    }
+    };
   }
 
   /* BUILT-IN */
@@ -66,7 +66,7 @@ class App extends Component {
       predictionList: [],
       typingTimeout: setTimeout(() => {
         this.getPredictions(this.state.input);
-      }, 0)
+      }, 1)
     });
   }
 
@@ -82,12 +82,13 @@ class App extends Component {
 
   /* CARD */
   async addCard(inputName) {
+    if (!this.isOnLine()) return;
     dbg(inputName + ': Consultando API...');
     const DATA = await this.getWeather(inputName);
     // Manual catch error
     if (DATA > 200) {
       const MSG = 'Cuidad no encontrada';
-      this.addNotification(MSG);
+      this.addNotification(MSG, 'alert');
       err(inputName + ': ' + MSG + ' (error ' + DATA + ')');
       return;
     }
@@ -102,8 +103,8 @@ class App extends Component {
         if (exist) return;
       });
       if (exist) {
-        const MSG = 'Cuidad incluida';
-        this.addNotification(MSG);
+        const MSG = 'Cuidad ya incluida';
+        this.addNotification(MSG, 'info');
         alt(FULL_NAME + ': ' + MSG);
         return;
       }
@@ -118,12 +119,13 @@ class App extends Component {
   }
 
   async updateCard(fullName) {
+    if (!this.isOnLine()) return;
     dbg(fullName + ': Actualizando...');
     const DATA = await this.getWeather(fullName);
     // Manual catch error
     if (DATA > 200) {
       const MSG = fullName + ': No se ha podido actualizar';
-      this.addNotification(MSG);
+      this.addNotification(MSG, 'alert');
       err(MSG + ' (error ' + DATA + ')');
       return;
     }
@@ -162,9 +164,13 @@ class App extends Component {
   }
 
   /* NOTIFICATION */
-  addNotification(msg) {
+  addNotification(msg, type) {
     let newNotificationList = this.state.notificationList;
-    newNotificationList.push({ msg: msg, time: new Date().getTime() });
+    newNotificationList.push({
+      msg: msg,
+      time: new Date().getTime(),
+      type: type
+    });
     this.setState({ notificationList: newNotificationList });
   }
 
@@ -195,14 +201,16 @@ class App extends Component {
       const RES_JSON = await RES.json();
       return {
         cloud: RES_JSON.clouds.all,
+        coord: { lat: RES_JSON.coord.lat, lon: RES_JSON.coord.lon },
         countryCode: RES_JSON.sys.country,
         desc: RES_JSON.weather[0].description,
         hum: RES_JSON.main.humidity,
         icon: RES_JSON.weather[0].icon,
         cityName: RES_JSON.name,
         temp: Math.round(RES_JSON.main.temp),
-        temp_max: Math.round(RES_JSON.main.temp_max),
-        temp_min: Math.round(RES_JSON.main.temp_min),
+        tempMax: Math.round(RES_JSON.main.temp_max),
+        tempMin: Math.round(RES_JSON.main.temp_min),
+        timezone: RES_JSON.timezone,
         wind: Math.round(RES_JSON.wind.speed * 3.6)
       };
     }
@@ -239,6 +247,13 @@ class App extends Component {
       return [];
     })();
     this.setState({ predictionList: NEW_PREDICTION_LIST });
+  }
+
+  isOnLine() {
+    if (window.navigator.onLine) return true;
+    // Else
+    this.addNotification('Equipo offline', 'error');
+    return false;
   }
 
   render() {
