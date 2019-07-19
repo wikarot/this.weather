@@ -1,0 +1,7 @@
+.btn {
+  cursor: pointer;
+  &:hover,
+  &:active {
+    @extend .perma_active;
+  }
+}

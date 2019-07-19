@@ -1,35 +1,36 @@
-const FORMAT = '%c%s%s ';
+const FORMAT = '%c%s';
+const RAD = 'border-radius: 99px;';
 const DD = ' » ';
 
-// EXIT
-export const ext = console.ext = function (msg) {
+// SUCCESS
+export const suc = console.suc = function (msg) {
   console.log(FORMAT,
-    'color: GreenYellow; background-color: DarkGreen;',
-    DD, msg);
+    'color: GreenYellow; background-color: DarkGreen; ' + RAD,
+    DD + msg + ' ');
 }
 // ALERT
 export const alt = console.alt = function (msg) {
   console.log(FORMAT,
-    'color: Black; background-color: Gold;',
-    DD, msg);
+    'color: Black; background-color: Gold; ' + RAD,
+    DD + msg + ' ');
 }
 // ERROR
 export const err = console.err = function (msg) {
   console.log(FORMAT,
-    'color: MistyRose; background-color: DarkRed;',
-    DD, msg);
+    'color: MistyRose; background-color: DarkRed; ' + RAD,
+    DD + msg + ' ');
 }
 // NOTIFICATION
 export const not = console.not = function (msg) {
   console.log(FORMAT,
-    'color: LightCyan; background-color: DarkSlateGray;',
-    DD, msg);
+    'color: LightCyan; background-color: DarkSlateGray; ' + RAD,
+    DD + msg + ' ');
 }
 // DEBUG
 export const dbg = console.dbg = function (msg) {
   console.log(FORMAT,
-    'color: SkyBlue; background-color: MidnightBlue;',
-    DD, msg);
+    'color: SkyBlue; background-color: MidnightBlue; ' + RAD,
+    DD + msg + ' ');
 }
 // FANCY
 export const fcy = console.fcy = function (msg) {

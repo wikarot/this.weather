@@ -1,40 +1,9 @@
 # this.weather
 
-- Tarjetas de estado del timepo en determinada cuidad.
-- Agregar cuantas tarjetas se desee (sin repeticion).
-- Posibilidad de actualizar manualmente.
-- Posibilidad de eliminar.
-- Actualizaciones cada 15 minutos.
-
-----
-
-## Datos (minimos) a mostrar
-
-- Nombre de cuidad, pais.
-- Temperatura, max., min..
-- Estado/Descripcion.
-- Humedad.
-- Nubosidad.
-- Viento.
-
-### A futuro
-
-- Generar un widget en el escritorio. (Electron app)
-- Mostrar cada ubicacion en un mapa sobre la tarjeta. (THREE.js)
-
-----
-
-## A utilizar
-
-- HTML5
-- CSS3
-- JS ES6
-- React
-- SASS
+Una SPA para acceder al estado del tiempo.
 
 ----
 
 ## Licencia
 
-MIT License.
-Copyright (c) 2019 - Wikarot.
+MIT License. Copyright 2019 Wikarot.

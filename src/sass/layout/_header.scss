@@ -1,0 +1,110 @@
+header {
+  align-content: center;
+  background-color: $grey_light;
+  border-bottom: $border_transparent;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  box-shadow: $sh_out, $sh_in_light_bot;
+  display: flex;
+  flex-direction: column;
+  transition: padding $fast;
+  z-index: 4;
+  box-sizing: border-box;
+  #search_box {
+    color: black;
+    margin: 16px auto;
+    max-width: 320px;
+    min-width: 180px;
+    //padding-top: 1px;
+    width: 40%;
+    position: relative;
+    &[predvisible="true"] #input_query {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom: none;
+      padding-bottom: 1px;
+    }
+    &[predvisible="true"] #prediction_box {
+      display: block;
+    }
+    #search_btn {
+      border-radius: 16px;
+      position: absolute;
+      padding-right: 3px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      overflow: hidden;
+      &.loading_box.loading {
+        div:first-of-type {
+          display: none;
+        }
+      }
+    }
+    #search_btn:hover ~ #input_query {
+      box-shadow: $sh_out_big;
+    }
+    #input_query {
+      background-color: $white;
+      border: $border;
+      border-radius: 16px;
+      box-shadow: $sh_out;
+      box-sizing: border-box;
+      color: inherit;
+      height: 32px;
+      outline: none;
+      padding-left: 12px;
+      padding-right: 36px;
+      width: 100%;
+      transition: $slow;
+      transition-property: box-shadow, width;
+      &:focus,
+      &:hover {
+        box-shadow: $sh_out_big;
+      }
+      &::placeholder {
+        color: $grey_dark;
+      }
+    }
+    #prediction_box {
+      background-color: $white;
+      border-bottom: $border;
+      border-left: $border;
+      border-right: $border;
+      box-shadow: $sh_out_big;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      display: none;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 32px;
+      //z-index: 0;
+    }
+  }
+  nav {
+    padding-top: 1px;
+    color: $grey_dark;
+    font-size: 12px;
+    box-sizing: border-box;
+    height: 32px;
+    margin: 0 auto;
+    ul {
+      display: flex;
+      flex-direction: row;
+      margin-left: auto;
+      width: max-content;
+      li {
+        display: contents;
+        a {
+          padding: 8px 16px 7px;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

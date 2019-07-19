@@ -1,0 +1,132 @@
+#weather_maps {
+  height: min-content;
+  margin: 16px auto;
+  width: min-content;
+  position: relative;
+  @include relief;
+  #weather_maps_header {
+    display: flex;
+    align-content: center;
+    h3 {
+      margin: 8px auto 7px 0;
+      padding: 0 9px;
+      em span {
+        font-style: inherit;
+      }
+    }
+    button {
+      align-self: flex-start;
+    }
+  }
+  #weather_maps_body.dragscroll {
+    cursor: grab;
+    position: relative;
+    max-width: max-content;
+    overflow-x: visible;
+    &:active {
+      cursor: grabbing;
+    }
+    /* #globe_box {
+    } */
+    /* #map_box {
+    } */
+    /* #labels {
+    } */
+    @media screen and (min-width: 1200px) {
+      cursor: default;
+    }
+    @media screen and (max-width: 1199px) and (min-width: 680px) {
+      max-width: 512px;
+      overflow-x: scroll;
+    }
+    @media screen and (max-width: 679px) {
+      max-width: 256px;
+      overflow-x: scroll;
+    }
+  }
+  #weather_maps_control {
+    display: flex;
+    justify-content: space-between;
+    /* #globe_controls {
+    } */
+    #generic_controls {
+      display: flex;
+      justify-self: right;
+      margin-left: auto;
+    }
+  }
+  #mark_box {
+    $size: 512px;
+    height: $size;
+    pointer-events: none;
+    position: absolute;
+    bottom: calc(1px + 32px + 4px + 18px + (3px * 3)); // padding, btns, ref gradient, ref data, hrs
+    width: $size;
+    z-index: 2;
+    @media screen and (min-width: 1200px) {
+      display: none !important;
+    }
+    @media screen and (max-width: 679px) {
+      @include square(256px);
+      div#mark_content {
+        @include square(256px);
+        div#mark_left,
+        div#mark_right {
+          height: 256px;
+          &::before {
+            width: 7px;
+            height: 256px;
+          }
+        }
+        div#mark_left {
+          left: 7px;
+          &::before {
+            left: -7px;
+          }
+        }
+        div#mark_right {
+          right: 7px;
+          &::before {
+            right: -7px;
+          }
+        }
+      }
+    }
+    #mark_content {
+      $gradient_body: $grey_light 0%, transparent 100%;
+      position: relative;
+      width: $size;
+      height: $size;
+      #mark_left,
+      #mark_right {
+        position: absolute;
+        top: 0px;
+        height: $size;
+        &::before {
+          content: "";
+          background-color: $grey_light;
+          height: $size;
+          position: absolute;
+          top: 0px;
+          width: 14px;
+        }
+      }
+      #mark_left {
+        background: linear-gradient(to right, $gradient_body);
+        left: 14px;
+        width: 0px;
+        &::before {
+          left: -14px;
+        }
+      }
+      #mark_right {
+        background: linear-gradient(to left, $gradient_body);
+        right: 14px;
+        width: 32px;
+        &::before {
+          right: -14px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+#globe_box {
+  display: flex;
+  position: relative;
+  #globe_shadow {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    span {
+      margin: auto;
+      border-radius: 16px;
+      height: 32px;
+      width: 32px;
+      box-shadow: -60px 30px 55px 140px $grey_dark_dark_transparent;
+    }
+  }
+  #globe_canvas {
+    cursor: grab;
+    position: relative;
+    z-index: 1;
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  @media screen and (max-width: 679px) {
+    #globe_canvas {
+      height: 256px;
+      width: 256px;
+    }
+    #globe_shadow span {
+      box-shadow: -30px 15px 28px 60px $grey_dark_dark_transparent;
+    }
+  }
+}

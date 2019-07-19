@@ -1,0 +1,102 @@
+.card {
+  align-self: flex-start;
+  animation: card_appear $fast 1 cubic-bezier(0.65, 0.05, 0.36, 1);
+  height: min-content;
+  margin: 16px;
+  min-width: 168px;
+  position: relative;
+  transform-origin: top;
+  width: min-content;
+  @include relief;
+  /* &[imhere="true"] {
+  } */
+  div > p,
+  div > h2 {
+    padding: 0 9px;
+  }
+  .card_header {
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    .name {
+      margin: 8px 0 7px 0;
+      em {
+        transition: $fast;
+        transition-property: color, text-shadow;
+      }
+    }
+    .icon_small {
+      align-self: flex-start;
+      filter: drop-shadow(0 0 1px $grey_dark);
+    }
+  }
+  .temp {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: min-content;
+    grid-template-areas:
+      "temp temp_max"
+      "temp temp_min";
+    span {
+      margin-right: 9px;
+    }
+    .temp_current {
+      grid-area: temp;
+      font-size: 3.5em;
+      font-weight: 100;
+      line-height: 1em;
+      margin-top: 4px;
+    }
+    .temp_max {
+      grid-area: temp_max;
+      margin-right: auto;
+      margin-top: 8px;
+    }
+    .temp_min {
+      grid-area: temp_min;
+      margin-top: 7px;
+      margin-bottom: 7px;
+    }
+  }
+  .desc {
+    align-content: center;
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    .desc {
+      margin: 8px 0 7px 0;
+      text-transform: capitalize;
+    }
+    .icon_small {
+      align-self: flex-start;
+    }
+  }
+  .others {
+    div p {
+      display: inline-block;
+      margin-bottom: 7px;
+    }
+    div:first-child p {
+      margin-top: 8px;
+    }
+    div:last-child p {
+      margin-bottom: 7px;
+    }
+  }
+  .card_control {
+    display: flex;
+    justify-content: space-between;
+    .loading {
+      & div:first-of-type {
+        display: none;
+      }
+    }
+    .time {
+      color: $grey_dark;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      margin: auto 0;
+      padding-top: 1px;
+    }
+  }
+}

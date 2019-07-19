@@ -1,0 +1,29 @@
+@mixin icon_body($icon_size) {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  span {
+    margin: auto;
+    @include square($icon_size);
+    svg {
+      transition: fill $fast;
+      fill: $grey_dark;
+      @include square($icon_size);
+    }
+    img {
+      @include square($icon_size);
+    }
+  }
+}
+@mixin square($size) {
+  height: $size;
+  width: $size;
+}
+@mixin relief {
+  background-color: $grey_light;
+  border: $border_transparent;
+  border-radius: 2px;
+  box-shadow: $sh_out, $sh_in_light;
+  color: $grey_dark_dark;
+  padding: 1px;
+}

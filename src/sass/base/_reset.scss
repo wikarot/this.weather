@@ -1,0 +1,47 @@
+* {
+  color: $grey_dark_dark;
+  font-family: "Roboto", sans-serif, monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+a,
+em,
+div,
+li,
+h1,
+p,
+span,
+strong,
+ul {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+strong {
+  font-weight: 700;
+}
+em {
+  color: $grey_dark;
+  font-style: italic;
+}
+hr {
+  border: none;
+  border-bottom: 1px solid $white;
+  border-top: $border;
+  margin-top: 1px;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration-color: $grey_dark;
+}

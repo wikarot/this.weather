@@ -1,0 +1,24 @@
+.prediction {
+  color: black;
+  display: flex;
+  min-height: 32px;
+  height: fit-content;
+  padding: 8px 9px 7px 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  p {
+    height: min-content;
+    /* em {
+    } */
+  }
+  & > span {
+    pointer-events: none;
+    margin: auto 0;
+  }
+  &:hover {
+    background-color: #f4f4f4;
+  }
+  &.active_prediction {
+    background: rgb(217, 238, 255);
+  }
+}

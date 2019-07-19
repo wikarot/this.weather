@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './sass/index.css';
-import App from './App';
-import { fcy } from './js/newConsole';
+import './sass/main.css';
+import ThisWeather from './ThisWeather';
+import { fcy } from './js/customConsole';
 
 fcy('Welcome to this.weather!');
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<ThisWeather />, document.getElementById('root'));

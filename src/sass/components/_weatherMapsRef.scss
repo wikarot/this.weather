@@ -1,0 +1,106 @@
+#ref {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  #ref_data {
+    align-content: center;
+    color: $grey_dark;
+    display: flex;
+    height: 18px;
+    justify-content: space-between;
+    padding: 0 9px;
+    p {
+      margin: auto 0;
+      font-size: 12px;
+    }
+  }
+  #ref_gradient_bg {
+    position: absolute;
+    background: $ref_gradient_bg;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+  }
+  .ref_gradient {
+    height: 4px;
+    z-index: 1;
+  }
+}
+// cloud
+.ref_gradient_1 {
+  background: linear-gradient(
+    to right,
+    rgba(247, 247, 255, 0) 0%,
+    rgba(251, 247, 255, 0) 10%,
+    rgba(244, 248, 255, 0.1) 20%,
+    rgba(240, 249, 255, 0.2) 30%,
+    rgba(221, 250, 255, 0.4) 40%,
+    rgba(224, 224, 224, 0.6) 50%,
+    rgba(224, 224, 224, 0.76) 60%,
+    rgba(228, 228, 228, 0.9) 70%,
+    rgba(232, 232, 232, 0.9) 80%,
+    rgb(238, 238, 238) 90%,
+    rgb(244, 244, 244) 95%,
+    rgb(250, 250, 250) 100%
+  );
+}
+// precipitation
+.ref_gradient_2 {
+  background: linear-gradient(
+    to right,
+    rgba(247, 247, 255, 0) 0%,
+    rgba(251, 247, 255, 0) 10%,
+    rgba(244, 248, 255, 0.1) 20%,
+    rgba(240, 249, 255, 0.2) 30%,
+    rgba(221, 250, 255, 0.4) 40%,
+    rgba(224, 224, 224, 0.6) 50%,
+    rgba(224, 224, 224, 0.76) 60%,
+    rgba(228, 228, 228, 0.9) 70%,
+    rgba(232, 232, 232, 0.9) 80%,
+    rgb(238, 238, 238) 90%,
+    rgb(244, 244, 244) 95%,
+    rgb(250, 250, 250) 100%
+  );
+}
+// pressure
+.ref_gradient_3 {
+  background: linear-gradient(
+    to right,
+    rgb(0, 115, 255) 0%,
+    rgb(0, 170, 255) 8.35059%,
+    rgb(75, 208, 214) 24.9192%,
+    rgb(141, 231, 199) 41.4879%,
+    rgb(176, 247, 32) 49.7722%,
+    rgb(240, 184, 0) 58.0565%,
+    rgb(251, 85, 21) 74.6251%,
+    rgb(243, 54, 59) 91.1938%,
+    rgb(198, 0, 0) 100%
+  );
+}
+// wind
+.ref_gradient_4 {
+  background: linear-gradient(90deg, rgba(255, 171, 0, 0) 0%, rgba(255, 181, 0, 0.55) 50%, rgba(255, 215, 66, 1) 100%);
+}
+// temperature
+.ref_gradient_5 {
+  background: linear-gradient(
+    to right,
+    rgb(159, 85, 181) 0%,
+    rgb(44, 106, 187) 8.75%,
+    rgb(82, 139, 213) 12.5%,
+    rgb(103, 163, 222) 18.75%,
+    rgb(142, 202, 240) 25%,
+    rgb(155, 213, 244) 31.25%,
+    rgb(172, 225, 253) 37.5%,
+    rgb(194, 234, 255) 43.75%,
+    rgb(255, 255, 208) 50%,
+    rgb(254, 248, 174) 56.25%,
+    rgb(254, 232, 146) 62.5%,
+    rgb(254, 226, 112) 68.75%,
+    rgb(253, 212, 97) 75%,
+    rgb(244, 168, 94) 82.5%,
+    rgb(244, 129, 89) 87.5%,
+    rgb(244, 104, 89) 93.75%,
+    rgb(244, 76, 73) 100%
+  );
+}

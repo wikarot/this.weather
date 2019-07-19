@@ -1,0 +1,53 @@
+#map_box {
+  display: flex;
+  width: max-content;
+  &[style*="display: flex"] {
+    & ~ #labels {
+      //background-color: rgba(220, 20, 60, 0.199);
+      width: 1026px;
+      left: 14px;
+      overflow: hidden;
+      div.city_label {
+        margin-top: 12px;
+        &::before {
+          content: "";
+        }
+      }
+    }
+  }
+  #map_canvas_container {
+    border: 1px solid $grey_dark;
+    border-radius: 2px;
+    height: 482px; // ~ 94.4% of the map height is used by Mercator projection
+    position: relative;
+    overflow: hidden;
+    width: 1024px;
+    margin: 14px;
+    #map_canvas {
+      //opacity: 0.1;
+      position: absolute;
+      background: $map_bg;
+      background-size: contain;
+      height: 512px;
+      top: -15px;
+      width: 1024px;
+    }
+  }
+  @media screen and (max-width: 679px) {
+    &[style*="display: flex"] ~ #labels {
+      width: 514px;
+      left: 7px;
+      overflow: hidden;
+    }
+    #map_canvas_container {
+      height: 240px; // ~ 94.4% of the map height is used by Mercator projection
+      width: 512px;
+      margin: 7px;
+      #map_canvas {
+        height: 256px;
+        width: 512px;
+        top: -7px;
+      }
+    }
+  }
+}

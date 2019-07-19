@@ -1,0 +1,24 @@
+.custom_radio_container {
+  position: relative;
+  height: fit-content;
+  width: fit-content;
+  .custom_radio {
+    display: none;
+    &:checked ~ .icon {
+      @extend .perma_active;
+    }
+  }
+  .custom_radio_lbl {
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    &:hover ~ .icon,
+    &:active ~ .icon {
+      @extend .perma_active;
+    }
+  }
+}

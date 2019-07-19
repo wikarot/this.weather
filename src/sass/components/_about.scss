@@ -1,0 +1,51 @@
+#about {
+  @include relief;
+  max-width: fit-content;
+  padding: 1px;
+  margin: 64px auto;
+  min-width: 240px;
+  div,
+  article {
+    display: flex;
+    p,
+    h3,
+    h4,
+    h5,
+    ul {
+      margin: 8px 0 7px;
+      padding: 0 9px;
+    }
+    h4,
+    h5 {
+      margin-bottom: 0;
+    }
+  }
+  #about_header {
+    align-content: center;
+    justify-content: space-between;
+  }
+  /* #about_body p {
+  } */
+  #about_rss {
+    flex-direction: column;
+    #about_rss_header {
+      justify-content: space-between;
+      #custom_chk_about_chevron ~ .icon {
+        transform: rotateZ(-90deg);
+      }
+    }
+    #about_rss_body {
+      flex-direction: column;
+      display: none;
+      &[expanded="true"] {
+        display: flex;
+      }
+      ul li {
+        margin-bottom: 7px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

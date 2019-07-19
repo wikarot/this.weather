@@ -1,0 +1,31 @@
+.notification {
+  animation: notification 4s 1 cubic-bezier(0.65, 0.05, 0.36, 1);
+  background-color: $white;
+  border: $border;
+  border-radius: 2px;
+  box-shadow: $sh_out_big;
+  display: flex;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateX(100%) translate(32px);
+  width: max-content;
+  p {
+    color: $grey_dark_dark;
+    font-family: monospace;
+    margin: auto;
+    line-height: 1em;
+    padding: 0 12px 0 3px;
+  }
+  &.success .icon span svg use {
+    fill: rgb(38, 190, 0);
+  }
+  &.info .icon span svg use {
+    fill: rgb(0, 120, 255);
+  }
+  &.alert .icon span svg use {
+    fill: rgb(255, 200, 0);
+  }
+  &.error .icon span svg use {
+    fill: rgb(210, 0, 0);
+  }
+}

@@ -1,0 +1,59 @@
+footer {
+  align-content: center;
+  background-color: $grey_light;
+  border-top: $border;
+  box-shadow: $sh_out, $sh_in_light_top;
+  box-sizing: border-box;
+  color: $grey_dark_dark;
+  display: flex;
+  height: 48px;
+  padding: 0 32px;
+  position: relative;
+  z-index: 1;
+  #footer_content {
+    color: $grey_dark;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 12px;
+    margin: auto;
+    width: 100%;
+    #brand_box {
+      #imagotipo {
+        display: flex;
+        margin: auto 0;
+        text-decoration: none;
+        width: max-content;
+        &:hover .isotipo {
+          filter: drop-shadow(-1px 1px 2px $grey_dark) contrast(1.125);
+        }
+        #logotipo {
+          color: $grey_dark_dark;
+          display: inline-block;
+          font-family: monospace;
+          margin: auto 0;
+          padding: 0 12px 0 3px;
+        }
+        @media screen and (max-width: 679px) {
+          #logotipo {
+            display: none;
+          }
+        }
+      }
+    }
+    #cc {
+      display: flex;
+      span {
+        margin: auto 0;
+        p {
+          display: inline-block;
+          a {
+            display: inline-block;
+            color: inherit;
+            font-size: inherit;
+          }
+        }
+      }
+    }
+  }
+}

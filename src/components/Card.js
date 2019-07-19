@@ -1,177 +1,196 @@
 import React, { Component } from 'react'
-import place from '../svg/place.svg';
-import close from '../svg/close.svg';
-import refresh from '../svg/refresh.svg';
-/* import { not } from '../js/newConsole'; */
+import Icon from './Icon';
+import * as THREE from 'three';
+import { SCENE, SPH_RAD, RES } from '../js/threeStuff';
+import { CITY_LABELS } from './WeatherMaps';
+import { initSS } from '../js/smoothScroll';
+import { not } from '../js/customConsole';
+
+const TIME_TO_UPDATE = 20 * 60000; // ms
+const H = RES / 2;
+const DOT_GEO = new THREE.SphereBufferGeometry(0.001, 3, 2);
+const DOT_MAT = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, precision: "lowp" });
+const LINE_MAT = new THREE.LineBasicMaterial({ fog: false, color: '#b4b4b4' });
 
 export default class Card extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            /* updating: 'false',
-            updateTimer: undefined, */
-            time: '00:00',
-            timeTimer: undefined,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: '',
+      timeTimer: undefined,
+      updateTimer: undefined,
+    };
+    this.id = this.props.data.id; // city id
+    this.iconId = this.props.data.icon; // icon code
+    this.weatherId = this.props.data.weatherId; // weather code (more speciffic than icon code)
+    /* if (
+      (this.props.data.weatherId > 701 &&
+        this.props.data.weatherId < 741) ||
+      (this.props.data.weatherId > 741 &&
+        this.props.data.weatherId < 781)
+    ) {
+      this.iconId = '50'; // neither sun nor moon
+    } else */
+    if (this.props.data.weatherId === 781) this.iconId = '50tornado'; //tornado
+    this.update = this.update.bind(this);
+    this.remove = this.remove.bind(this);
+    this.createTag = this.createTag.bind(this);
+  }
 
-    componentDidMount() {
-        // Update timing, around 15min.
-        /* const t = (14 * 60000) + Math.round(Math.random() * 120000);
-        this.autoUpdate(t); */
-        this.setState({ timeTimer: setInterval(this.getTime.bind(this), 1000) });
-    }
+  componentWillMount() {
+    clearInterval(this.state.updateTimer);
+    clearInterval(this.state.timeTimer);
+  }
 
-    componentWillUnmount() {
-        /* clearInterval(this.state.updateTimer); */
-        /* clearInterval(this.state.timeTimer); */
-    }
+  componentDidMount() {
+    this.getTime();
+    this.createTag();
+    this.setState({
+      updateTimer: setInterval(() => {
+        this.update();
+        not(this.props.fullName + ': Actualización automática...');
+      }, TIME_TO_UPDATE)
+    });
+    this.setState({
+      timeTimer: setInterval(() => {
+        this.getTime()
+      }, 60000)
+    });
+    document.getElementById('search_btn').classList.remove('loading');
+  }
 
-    getTime() {
-        const OFFSET = ((this.props.data.timezone / 60) / 60);
-        const OFFSET_F = Math.floor(OFFSET);
-        let mm_off = 0;
+  componentWillUnmount() {
+    let dot, line;
+    CITY_LABELS.forEach(item => {
+      if (item.id === this.id) { dot = item.dot; line = item.line; }
+    });
+    SCENE.remove(dot, line); // remove it from the scene
+    CITY_LABELS.filter(item => item.id !== this.id); // remove it from the "list"
+    document.getElementById('city_label_' + this.id).remove(); // remove it from the DOM
+    clearInterval(this.state.updateTimer);
+    clearInterval(this.state.timeTimer);
+  }
 
-        if (OFFSET_F !== OFFSET) mm_off = Math.floor((OFFSET - OFFSET_F) * 60);
+  getTime() {
+    const OFFSET = ((this.props.data.timezone / 60) / 60); // timezone = seconds --> OFFSET hours
+    const OFFSET_F = Math.floor(OFFSET); // Integer from OFFSET (the offset can be XX hours AND 30 minutes in some cases)
+    let mm_off = 0;
+    if (OFFSET_F !== OFFSET) mm_off = Math.floor((OFFSET - OFFSET_F) * 60);
+    let hh = new Date().getUTCHours() + OFFSET_F;
+    let mm = new Date().getUTCMinutes() + mm_off;
+    if (mm > 59) { hh++; mm -= 60; }
+    if (hh > 23) hh -= 24;
+    if (hh < 0) hh = 24 + hh;
+    if (hh < 10 && hh >= 0) hh = '0' + hh;
+    if (mm < 10) mm = '0' + mm;
+    this.setState({ time: (hh + ':' + mm) });
+  }
 
-        let hh = new Date().getUTCHours() + OFFSET_F;
-        let mm = new Date().getUTCMinutes() + mm_off;
+  autoUpdate(t) {
 
-        if (mm > 59) { hh = hh + 1; mm = mm - 60; }
-        if (hh > 23) hh = hh - 24;
-        if (hh < 10 && hh >= 0) hh = '0' + hh;
-        if (hh < 0) hh = 24 + hh;
-        if (mm < 10) mm = '0' + mm;
+  }
 
-        this.setState({
-            time: (hh + ':' + mm)
-        });
-    }
+  createTag() {
+    let lbl = document.createElement('div');
+    lbl.textContent = this.props.data.cityName;
+    lbl.className = 'city_label';
+    lbl.id = 'city_label_' + this.id;
+    document.getElementById('labels').appendChild(lbl);
+    lbl.onclick = () => {
+      const offsetTop = document.getElementById('card_' + this.id).offsetTop;
+      initSS(100 + offsetTop - 16); // 100 header and 16 card margin
+    };
 
-    /* autoUpdate(t) {
-        this.setState({
-            updateTimer: setInterval(() => {
-                not(this.props.fullName + ': Actualizacion automatica...');
-                this.callForUpdate();
-            }, t)
-        });
-    } */
+    // Rotation matrix
+    const MTX = new THREE.Matrix4();
+    const { lat, lon } = this.props.data.coord;
+    MTX.makeRotationFromEuler(new THREE.Euler(
+      THREE.Math.degToRad(-lat), // X axe, horizontal rotation
+      THREE.Math.degToRad(+lon), // Y axe, Vectical rotation
+      0, 'YXZ'));
+    // Invisible dot to hold the label position
+    const DOT = new THREE.Mesh(DOT_GEO, DOT_MAT);
+    DOT.name = this.id;
+    DOT.position.set(0, 0, SPH_RAD * 1.4).applyMatrix4(MTX);
+    const LINE_GEO = new THREE.Geometry();
+    LINE_GEO.vertices.push(
+      new THREE.Vector3(0, 0, 0),
+      new THREE.Vector3(0, 0, SPH_RAD * 1.4).applyMatrix4(MTX));
+    const LINE = new THREE.Line(LINE_GEO, LINE_MAT);
 
-    componentDidUpdate() {
-        if (this.state.updating === 'true') {
-            this.setState({ updating: 'false' });
-        }
-    }
+    // Add line and dot to global scene
+    SCENE.add(DOT, LINE);
+    // Coordinates to print the label on "flat" map
+    const X = (180 + lon) / 360 * RES;
+    const Y = -(lat * (H / 180)) + H * 0.5;
+    // Add a city name label to labels public container
+    CITY_LABELS.push({ id: this.id, label: lbl, dot: DOT, line: LINE, x: X, y: Y });
+  }
 
-    callForUpdate() {
-        this.setState({ updating: 'true' });
-        this.props.handleUpdate(this.props.fullName);
-    }
+  update() {
+    this.props.update(this.id, this.props.fullName);
+  }
 
-    callForRemove() {
-        this.props.handleRemove(this.props.fullName);
-    }
+  remove() {
+    this.props.remove(this.id, this.props.fullName);
+  }
 
-    render() {
-        const DATA = this.props.data;
-        const EXTRAS = this.props.extras;
-        return (
-            <article className="card" id={this.props.fullName}>
-                <div className="content">
-                    <div className="head_box"
-                        title={
-                            DATA.cityName + ', ' +
-                            EXTRAS.countryName + ' (' +
-                            EXTRAS.countryNameNative + ')'
-                        }
-                    >
-                        <h3 className="name" >
-                            {DATA.cityName}, {DATA.countryCode}
-                        </h3>
-                        <div className="place_div">
-                            <span>
-                                <img
-                                    className="place"
-                                    src={place}
-                                    alt="Ubicacion"
-                                    title="Ubicacion"
-                                />
-                            </span>
-                        </div>
-                        <div className="flag_div">
-                            <span>
-                                <img
-                                    className="flag"
-                                    src={'https://www.countryflags.io/' + DATA.countryCode + '/shiny/16.png'}
-                                    alt={'Bandera de ' + this.props.fullName}
-                                />
-                            </span>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="temp_box">
-                        <p className="temp">
-                            {DATA.temp}°
-                        </p>
-                        <p className="temp_max">
-                            <span>Max</span>{DATA.tempMax}°
-                        </p>
-                        <p className="temp_min">
-                            <span>Min</span>{DATA.tempMin}°
-                        </p>
-                    </div>
-                    <hr />
-                    <div className="desc_box">
-                        <p className="desc">
-                            {DATA.desc}
-                        </p>
-                        <div>
-                            <span>
-                                <img
-                                    src={
-                                        'https://res.cloudinary.com/wikarot/image/upload/v1559246003/weathericons/' +
-                                        DATA.icon + '.png'
-                                    }
-                                    alt={DATA.desc}
-                                />
-                            </span>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="others_box">
-                        <div className="hum">
-                            <p>Humedad</p>
-                            <span>{DATA.hum}%</span>
-                        </div>
-                        <div className="cloud">
-                            <p>Nubosidad</p>
-                            <span>{DATA.cloud}%</span>
-                        </div>
-                        <div className="wind">
-                            <p>Viento</p>
-                            <span>{DATA.wind} km/h</span>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="control_box">
-                        <button className="refresh" onClick={this.callForUpdate.bind(this)}>
-                            <span>
-                                <img src={refresh} alt="Actualizar" title="Actualizar" />
-                            </span>
-                        </button>
-                        <div>
-                            <span className="time">
-                                {this.state.time}
-                            </span>
-                        </div>
-                        <button className="close" onClick={this.callForRemove.bind(this)}>
-                            <span>
-                                <img src={close} alt="Cerrar" title="Cerrar" />
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </article>
-        );
-    }
+  render() {
+    return (
+      <section id={'card_' + this.id}
+        className="card"
+        rotated={this.state.rotated} >
+        <div className="card_header"
+          title={
+            this.props.fullName + ' (' +
+            this.props.extras.countryNameNative + ')'}>
+          <h2 className="name"><em>{this.props.fullName}</em></h2>
+          <div className="icon_small">
+            <span>
+              <img
+                src={'https://www.countryflags.io/' + this.props.data.countryCode + '/shiny/16.png'}
+                alt={'Bandera de ' + this.props.extras.countryName}
+                title={'Bandera de ' + this.props.extras.countryName} />
+            </span>
+          </div>
+        </div>
+        <hr />
+        <div className="temp">
+          <p className="temp_current">{this.props.data.temp}°</p>
+          <p className="temp_max"><span>Máx</span>{this.props.data.tempMax}°</p>
+          <p className="temp_min"><span>Mín</span>{this.props.data.tempMin}°</p>
+        </div>
+        <hr />
+        <div className="desc">
+          <p className="desc">{this.props.data.desc}</p>
+          <Icon name={this.iconId} />
+        </div>
+        <hr />
+        <div className="others">
+          <div className="hum">
+            <p>Humedad</p><span>{this.props.data.hum}%</span>
+          </div>
+          <div className="cloud">
+            <p>Nubosidad</p><span>{this.props.data.cloud}%</span>
+          </div>
+          <div className="wind">
+            <p>Viento</p><span>{this.props.data.wind}km/h</span>
+          </div>
+        </div>
+        <hr />
+        <div className="card_control">
+          <button className="loading_box" onClick={this.update} title="Actualizar">
+            <Icon name="refresh" classes={['btn']} />
+            <Icon name="loading_loop" />
+          </button>
+          <span className="time">
+            {this.state.time}
+          </span>
+          <button onClick={this.remove} title="Cerrar" >
+            <Icon name="close" classes={['btn']} />
+          </button>
+        </div>
+      </section>
+    );
+  }
 }

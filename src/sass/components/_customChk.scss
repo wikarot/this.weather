@@ -1,0 +1,44 @@
+.custom_chk_container {
+  position: relative;
+  height: fit-content;
+  width: fit-content;
+  &:hover .icon,
+  &:active .icon {
+    @extend .perma_active;
+  }
+  &.single_icon {
+    .custom_chk:checked {
+      & ~ .icon {
+        @extend .perma_active;
+      }
+    }
+  }
+  &.dual_icon {
+    .icon:first-of-type {
+      display: flex;
+    }
+    .icon:last-of-type {
+      display: none;
+    }
+    .custom_chk:checked {
+      & ~ .icon:first-of-type {
+        display: none;
+      }
+      & ~ .icon:last-of-type {
+        display: flex;
+      }
+    }
+  }
+  .custom_chk {
+    display: none;
+  }
+  .custom_chk_lbl {
+    cursor: inherit;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+}

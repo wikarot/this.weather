@@ -1,0 +1,19 @@
+html {
+  min-height: 100vh;
+  //user-select: none;
+  body {
+    min-height: 100vh;
+    #root {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-width: min-content;
+      /* #weather_maps_container {
+        canvas {
+          background: $map_bg;
+          background-size: contain;
+        }
+      } */
+    }
+  }
+}
