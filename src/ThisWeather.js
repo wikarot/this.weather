@@ -341,16 +341,16 @@ export default class ThisWeather extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/">Hogar</Link>
+                <Link to="/this.weather/">Hogar</Link>
               </li>
               <li>
-                <Link to="/about">Acerca de</Link>
+                <Link to="/this.weather/about">Acerca de</Link>
               </li>
             </ul>
           </nav>
         </header>
         <main>
-          <Route exact path="/" render={props => (
+          <Route exact path="/this.weather/" render={props => (
             <div id="main_content">
               <div id="card_box">
                 {this.state.cardList.map(item => (
@@ -383,7 +383,7 @@ export default class ThisWeather extends Component {
               </div>
             </div>
           )} />
-          <Route path="/about" component={About} />
+          <Route path="/this.weather/about" component={About} />
           <div id="to_top_btn_box">
             <ToTopBtn />
           </div>

@@ -47,8 +47,8 @@ export default class Card extends Component {
     this.createTag();
     this.setState({
       updateTimer: setInterval(() => {
-        this.update();
         not(this.props.fullName + ': Actualización automática...');
+        this.update();
       }, TIME_TO_UPDATE)
     });
     this.setState({
@@ -84,10 +84,6 @@ export default class Card extends Component {
     if (hh < 10 && hh >= 0) hh = '0' + hh;
     if (mm < 10) mm = '0' + mm;
     this.setState({ time: (hh + ':' + mm) });
-  }
-
-  autoUpdate(t) {
-
   }
 
   createTag() {
