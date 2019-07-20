@@ -13,10 +13,10 @@ header {
   #search_box {
     color: black;
     margin: 16px auto;
-    max-width: 320px;
-    min-width: 180px;
+    width: 45%;
+    max-width: 330px;
+    min-width: 210px;
     //padding-top: 1px;
-    width: 40%;
     position: relative;
     &[predvisible="true"] #input_query {
       border-bottom-left-radius: 0px;
@@ -86,7 +86,7 @@ header {
   nav {
     padding-top: 1px;
     color: $grey_dark;
-    font-size: 12px;
+    font-size: $font_small;
     box-sizing: border-box;
     height: 32px;
     margin: 0 auto;

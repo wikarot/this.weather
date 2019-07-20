@@ -23,6 +23,16 @@
     overflow: hidden;
     width: 1024px;
     margin: 14px;
+    cursor: grab;
+    &:active {
+      cursor: grabbing;
+    }
+    @media screen and (min-width: 1200px) {
+      cursor: default;
+      &:active {
+        cursor: default;
+      }
+    }
     #map_canvas {
       //opacity: 0.1;
       position: absolute;

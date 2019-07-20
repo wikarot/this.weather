@@ -80,4 +80,20 @@ main {
       z-index: 3;
     }
   }
+  @media screen and (max-width: 679px) {
+    & {
+      #main_content {
+        #card_box {
+          padding: 16px;
+          min-height: unset;
+        }
+        #to_maps_btn {
+          display: none;
+        }
+        #weather_maps_box {
+          padding: 16px;
+        }
+      }
+    }
+  }
 }

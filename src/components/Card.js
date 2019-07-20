@@ -46,15 +46,13 @@ export default class Card extends Component {
     this.getTime();
     this.createTag();
     this.setState({
-      updateTimer: setInterval(() => {
-        not(this.props.fullName + ': Actualización automática...');
-        this.update();
-      }, TIME_TO_UPDATE)
-    });
-    this.setState({
       timeTimer: setInterval(() => {
         this.getTime()
-      }, 60000)
+      }, 60000),
+      /* updateTimer: setInterval(() => {
+        not(this.props.fullName + ': Actualización automática...');
+        this.update();
+      }, TIME_TO_UPDATE) */
     });
     document.getElementById('search_btn').classList.remove('loading');
   }
@@ -159,19 +157,7 @@ export default class Card extends Component {
         <hr />
         <div className="desc">
           <p className="desc">{this.props.data.desc}</p>
-          <Icon name={this.iconId} />
-        </div>
-        <hr />
-        <div className="others">
-          <div className="hum">
-            <p>Humedad</p><span>{this.props.data.hum}%</span>
-          </div>
-          <div className="cloud">
-            <p>Nubosidad</p><span>{this.props.data.cloud}%</span>
-          </div>
-          <div className="wind">
-            <p>Viento</p><span>{this.props.data.wind}km/h</span>
-          </div>
+          <Icon name={this.iconId} classes={['perma_active']} />
         </div>
         <hr />
         <div className="card_control">

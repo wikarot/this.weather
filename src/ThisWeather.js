@@ -10,6 +10,7 @@ import About from './components/About';
 import { getPredictions, getUserLocation, getExtras, getWeather } from './js/getFromAPIs';
 import { initSS, cancelSS } from './js/smoothScroll';
 import { suc, alt, err, dbg } from './js/customConsole';
+import CITY_LIST from './apis/city.list.min.json';
 
 /* const PRELOAD_CITIES = [
   'Cairo,EG',             // africa
@@ -50,7 +51,7 @@ export default class ThisWeather extends Component {
     this.updateCard = this.updateCard.bind(this);
     this.removeCard = this.removeCard.bind(this);
     this.removeNotification = this.removeNotification.bind(this);
-    this.predictionClick = this.predictionClick.bind(this);
+    this.fireSearchFromPrediction = this.fireSearchFromPrediction.bind(this);
   }
 
   componentDidMount() {
@@ -59,7 +60,7 @@ export default class ThisWeather extends Component {
         err('Error al localizar el dispositivo (error ' + res + ')');
       else {
         dbg(`Dispositivo localizado...`);
-        this.addCard(res);
+        this.addCard(res, 'name');
       }
     });
     this.focusID('input_query');
@@ -116,7 +117,7 @@ export default class ThisWeather extends Component {
         (document.querySelector('.active_prediction') !== null)) {
         // if there are predictions AND there is an active one, search that
         const VAL = document.querySelector('.active_prediction input').value;
-        this.fireSearch(VAL);
+        this.fireSearchFromPrediction(VAL);
       } else {
         // else, try to search based on input value
         this.setState({ input: e.target.value });
@@ -135,12 +136,12 @@ export default class ThisWeather extends Component {
     this.setState({ predictionList: PREDS });
   }
 
-  fireSearch(inputName) {
+  fireSearch(inputName, option) {
     if (!this.isOnLine()) return; // if it's online, continue
-    if (typeof inputName === 'string') // if there is an specific input (parameter)
-      this.addCard(inputName);
+    if (inputName) // if there is an specific input (parameter)
+      this.addCard(inputName, option);
     else if (this.state.input.length > 0) // else, if there is text in the input box
-      this.addCard(this.state.input);
+      this.addCard(this.state.input, 'name');
     this.focusID('input_query'); // if not, return focus to the input box
   }
 
@@ -169,10 +170,10 @@ export default class ThisWeather extends Component {
    * Weather Card functionality
    */
 
-  async addCard(inputName) {
+  async addCard(inputName, option) {
     document.getElementById('search_btn').classList.add('loading');
     dbg(inputName + ': Consultando API...');
-    const DATA = await getWeather(inputName).catch(() => 0);
+    const DATA = await getWeather(inputName, option).catch(() => 0);
 
     // Manual catch error
     if (DATA > 200) {
@@ -194,6 +195,8 @@ export default class ThisWeather extends Component {
     if (this.state.cardList.length > 0) {
       let exist = false;
       this.state.cardList.forEach(card => {
+        // id correspondant to 'weather station id',
+        // city and country name can be the same
         if (DATA.id === card.data.id) return exist = true;
       });
       if (exist) {
@@ -222,7 +225,7 @@ export default class ThisWeather extends Component {
     document.querySelector('#card_' + id + ' > .card_control .loading_box')
       .classList.add('loading');
     dbg(fullName + ': Actualizando...');
-    const DATA = await getWeather(fullName).catch(() => 0);
+    const DATA = await getWeather(fullName, 'name').catch(() => 0);
 
     // Manual catch error
     if (DATA > 200) {
@@ -284,9 +287,9 @@ export default class ThisWeather extends Component {
    * Prediction functionality
    */
 
-  predictionClick(value) {
+  fireSearchFromPrediction(value) {
     this.resetPredictionList();
-    this.fireSearch(value);
+    this.fireSearch(value, 'id');
   }
 
   addActivePrediction(predListDOM) {
@@ -333,7 +336,7 @@ export default class ThisWeather extends Component {
                 <Prediction
                   data={item}
                   key={item.id}
-                  onClick={this.predictionClick} />
+                  onClick={this.fireSearchFromPrediction} />
               ))}
             </div>
           </div>
@@ -341,7 +344,7 @@ export default class ThisWeather extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/this.weather/">Hogar</Link>
+                <Link to="/this.weather/">Inicio</Link>
               </li>
               <li>
                 <Link to="/this.weather/about">Acerca de</Link>

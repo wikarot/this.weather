@@ -1,6 +1,6 @@
 $white: #ffffff; // app bg
 $grey_light: #fbfbfb; // relief bg
-$grey_light_transparent: #00000014; // border and shadows
+$grey_light_transparent: #0000000c; // border and shadows
 $grey_dark: #b5b5b5; // detail
 $grey_dark_dark: #6b6b6b; // color
 $grey_dark_dark_transparent: #00000090; // special shadows
@@ -14,7 +14,7 @@ $sh_out: 0 1px 2px $grey_light_transparent;
 $sh_out_big: 0 4px 4px $grey_light_transparent;
 $sh_out_big_center: 0 0 4px $grey_light_transparent;
 
-$w_ia: rgb(255, 255, 255) inset;
+$w_ia: rgba(255, 255, 255, 0.5) inset;
 $sh_in_light_top: 0 1px 1px $w_ia;
 $sh_in_light_rig: 1px 0 1px $w_ia;
 $sh_in_light_bot: 0 -1px 1px $w_ia;
@@ -24,6 +24,11 @@ $sh_in_light: $sh_in_light_top, $sh_in_light_rig, $sh_in_light_bot, $sh_in_light
 $fast: 0.1s;
 $slow: 0.2s;
 
+$font_small: 12px;
+$font_normal: 14px;
+$font_normal_x2: 28px;
+$font_big: 49px;
+
 $map_bg: url(https://res.cloudinary.com/wikarot/image/upload/v1560488304/globe_src/texture.png);
 $ref_gradient_bg: url(../images/grad_bg.png);
 
@@ -32,4 +37,6 @@ $ref_gradient_bg: url(../images/grad_bg.png);
 @media screen and (max-width: 1199px) and (min-width: 680px) {
 }
 @media screen and (max-width: 679px) {
+}
+@media screen and (max-width: 425px) {
 }

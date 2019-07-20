@@ -7,19 +7,18 @@ export default class Prediction extends Component {
   }
 
   onClick() {
-    const { start, match, finish, country } = this.props.data;
-    this.props.onClick(start + match + finish + ', ' + country);
+    this.props.onClick(this.props.data.id);
   }
 
   render() {
-    const { start, match, finish, country } = this.props.data;
+    const { start, match, finish, country, id } = this.props.data;
     return (
-      <div className="prediction" onClick={e => this.onClick(e)}>
+      <div className="prediction" onClick={this.onClick}>
         <span>
-          <p><strong>{start}</strong>{match}<strong>{finish}</strong><em> - {country}</em></p>
+          <p><strong>{start}</strong>{match}<strong>{finish}</strong><em> ({country})</em></p>
         </span>
         <input type="hidden"
-          value={start + match + finish + ', ' + country}
+          value={id}
           style={{ display: 'none' }} />
       </div>
     )

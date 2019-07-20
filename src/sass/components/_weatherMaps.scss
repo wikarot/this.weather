@@ -19,22 +19,15 @@
     }
   }
   #weather_maps_body.dragscroll {
-    cursor: grab;
     position: relative;
     max-width: max-content;
     overflow-x: visible;
-    &:active {
-      cursor: grabbing;
-    }
     /* #globe_box {
     } */
     /* #map_box {
     } */
     /* #labels {
     } */
-    @media screen and (min-width: 1200px) {
-      cursor: default;
-    }
     @media screen and (max-width: 1199px) and (min-width: 680px) {
       max-width: 512px;
       overflow-x: scroll;

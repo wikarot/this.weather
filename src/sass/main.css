@@ -123,7 +123,7 @@ em {
 hr {
   border: none;
   border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #00000014;
+  border-top: 1px solid #0000000c;
   margin-top: 1px;
 }
 
@@ -189,13 +189,22 @@ a {
   width: -moz-min-content;
   width: min-content;
   background-color: #fbfbfb;
-  border: 1px solid #00000014;
+  border: 1px solid #0000000c;
   border-radius: 2px;
-  -webkit-box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
-          box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
+  -webkit-box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
   color: #6b6b6b;
   padding: 1px;
   /* &[imhere="true"] {
+  } */
+  /* .others {
+    color: $grey_dark;
+    justify-content: space-between;
+    display: flex;
+    div .icon {
+    }
+    div span {
+    }
   } */
 }
 
@@ -229,8 +238,6 @@ a {
 .card .card_header .icon_small {
   -ms-flex-item-align: start;
       align-self: flex-start;
-  -webkit-filter: drop-shadow(0 0 1px #b5b5b5);
-          filter: drop-shadow(0 0 1px #b5b5b5);
 }
 
 .card .temp {
@@ -254,7 +261,7 @@ a {
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-area: temp;
-  font-size: 3.5em;
+  font-size: 49px;
   font-weight: 100;
   line-height: 1em;
   margin-top: 4px;
@@ -298,19 +305,6 @@ a {
 .card .desc .icon_small {
   -ms-flex-item-align: start;
       align-self: flex-start;
-}
-
-.card .others div p {
-  display: inline-block;
-  margin-bottom: 7px;
-}
-
-.card .others div:first-child p {
-  margin-top: 8px;
-}
-
-.card .others div:last-child p {
-  margin-bottom: 7px;
 }
 
 .card .card_control {
@@ -474,10 +468,10 @@ a {
   -webkit-animation: notification 4s 1 cubic-bezier(0.65, 0.05, 0.36, 1);
           animation: notification 4s 1 cubic-bezier(0.65, 0.05, 0.36, 1);
   background-color: #ffffff;
-  border: 1px solid #00000014;
+  border: 1px solid #0000000c;
   border-radius: 2px;
-  -webkit-box-shadow: 0 4px 4px #00000014;
-          box-shadow: 0 4px 4px #00000014;
+  -webkit-box-shadow: 0 4px 4px #0000000c;
+          box-shadow: 0 4px 4px #0000000c;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -560,10 +554,10 @@ a {
   width: min-content;
   position: relative;
   background-color: #fbfbfb;
-  border: 1px solid #00000014;
+  border: 1px solid #0000000c;
   border-radius: 2px;
-  -webkit-box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
-          box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
+  -webkit-box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
   color: #6b6b6b;
   padding: 1px;
 }
@@ -591,8 +585,6 @@ a {
 }
 
 #weather_maps #weather_maps_body.dragscroll {
-  cursor: -webkit-grab;
-  cursor: grab;
   position: relative;
   max-width: -webkit-max-content;
   max-width: -moz-max-content;
@@ -604,17 +596,6 @@ a {
     } */
   /* #labels {
     } */
-}
-
-#weather_maps #weather_maps_body.dragscroll:active {
-  cursor: -webkit-grabbing;
-  cursor: grabbing;
-}
-
-@media screen and (min-width: 1200px) {
-  #weather_maps #weather_maps_body.dragscroll {
-    cursor: default;
-  }
 }
 
 @media screen and (max-width: 1199px) and (min-width: 680px) {
@@ -814,9 +795,9 @@ footer {
   -ms-flex-line-pack: center;
       align-content: center;
   background-color: #fbfbfb;
-  border-top: 1px solid #00000014;
-  -webkit-box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset;
-          box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset;
+  border-top: 1px solid #0000000c;
+  -webkit-box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: #6b6b6b;
@@ -898,11 +879,11 @@ header {
   -ms-flex-line-pack: center;
       align-content: center;
   background-color: #fbfbfb;
-  border-bottom: 1px solid #00000014;
+  border-bottom: 1px solid #0000000c;
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
-  -webkit-box-shadow: 0 1px 2px #00000014, 0 -1px 1px white inset;
-          box-shadow: 0 1px 2px #00000014, 0 -1px 1px white inset;
+  -webkit-box-shadow: 0 1px 2px #0000000c, 0 -1px 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 1px 2px #0000000c, 0 -1px 1px rgba(255, 255, 255, 0.5) inset;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -920,9 +901,9 @@ header {
 header #search_box {
   color: black;
   margin: 16px auto;
-  max-width: 320px;
-  min-width: 180px;
-  width: 40%;
+  width: 45%;
+  max-width: 330px;
+  min-width: 210px;
   position: relative;
 }
 
@@ -952,16 +933,16 @@ header #search_box #search_btn.loading_box.loading div:first-of-type {
 }
 
 header #search_box #search_btn:hover ~ #input_query {
-  -webkit-box-shadow: 0 4px 4px #00000014;
-          box-shadow: 0 4px 4px #00000014;
+  -webkit-box-shadow: 0 4px 4px #0000000c;
+          box-shadow: 0 4px 4px #0000000c;
 }
 
 header #search_box #input_query {
   background-color: #ffffff;
-  border: 1px solid #00000014;
+  border: 1px solid #0000000c;
   border-radius: 16px;
-  -webkit-box-shadow: 0 1px 2px #00000014;
-          box-shadow: 0 1px 2px #00000014;
+  -webkit-box-shadow: 0 1px 2px #0000000c;
+          box-shadow: 0 1px 2px #0000000c;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: inherit;
@@ -979,8 +960,8 @@ header #search_box #input_query {
 }
 
 header #search_box #input_query:focus, header #search_box #input_query:hover {
-  -webkit-box-shadow: 0 4px 4px #00000014;
-          box-shadow: 0 4px 4px #00000014;
+  -webkit-box-shadow: 0 4px 4px #0000000c;
+          box-shadow: 0 4px 4px #0000000c;
 }
 
 header #search_box #input_query::-webkit-input-placeholder {
@@ -1001,11 +982,11 @@ header #search_box #input_query::placeholder {
 
 header #search_box #prediction_box {
   background-color: #ffffff;
-  border-bottom: 1px solid #00000014;
-  border-left: 1px solid #00000014;
-  border-right: 1px solid #00000014;
-  -webkit-box-shadow: 0 4px 4px #00000014;
-          box-shadow: 0 4px 4px #00000014;
+  border-bottom: 1px solid #0000000c;
+  border-left: 1px solid #0000000c;
+  border-right: 1px solid #0000000c;
+  -webkit-box-shadow: 0 4px 4px #0000000c;
+          box-shadow: 0 4px 4px #0000000c;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   display: none;
@@ -1182,15 +1163,15 @@ main #to_top_btn_box {
 
 main #to_top_btn_box #to_top_btn {
   background-color: #fbfbfb;
-  border: 1px solid #00000014;
+  border: 1px solid #0000000c;
   border-radius: 2px;
-  -webkit-box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
-          box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
+  -webkit-box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
   color: #6b6b6b;
   padding: 1px;
   bottom: 16px;
-  -webkit-box-shadow: 0 4px 4px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
-          box-shadow: 0 4px 4px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
+  -webkit-box-shadow: 0 4px 4px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 4px 4px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
   margin-top: auto;
   pointer-events: all;
   position: -webkit-sticky;
@@ -1202,6 +1183,19 @@ main #to_top_btn_box #to_top_btn {
   -webkit-transform: scale(0);
           transform: scale(0);
   z-index: 3;
+}
+
+@media screen and (max-width: 679px) {
+  main #main_content #card_box {
+    padding: 16px;
+    min-height: unset;
+  }
+  main #main_content #to_maps_btn {
+    display: none;
+  }
+  main #main_content #weather_maps_box {
+    padding: 16px;
+  }
 }
 
 html {
@@ -1363,6 +1357,22 @@ html body #root {
   overflow: hidden;
   width: 1024px;
   margin: 14px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+#map_box #map_canvas_container:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+@media screen and (min-width: 1200px) {
+  #map_box #map_canvas_container {
+    cursor: default;
+  }
+  #map_box #map_canvas_container:active {
+    cursor: default;
+  }
 }
 
 #map_box #map_canvas_container #map_canvas {
@@ -1462,10 +1472,10 @@ html body #root {
 
 #about {
   background-color: #fbfbfb;
-  border: 1px solid #00000014;
+  border: 1px solid #0000000c;
   border-radius: 2px;
-  -webkit-box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
-          box-shadow: 0 1px 2px #00000014, 0 1px 1px white inset, 1px 0 1px white inset, 0 -1px 1px white inset, -1px 0 1px white inset;
+  -webkit-box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
+          box-shadow: 0 1px 2px #0000000c, 0 1px 1px rgba(255, 255, 255, 0.5) inset, 1px 0 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.5) inset, -1px 0 1px rgba(255, 255, 255, 0.5) inset;
   color: #6b6b6b;
   padding: 1px;
   max-width: -webkit-fit-content;

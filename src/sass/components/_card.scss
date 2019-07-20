@@ -27,7 +27,6 @@
     }
     .icon_small {
       align-self: flex-start;
-      filter: drop-shadow(0 0 1px $grey_dark);
     }
   }
   .temp {
@@ -42,7 +41,7 @@
     }
     .temp_current {
       grid-area: temp;
-      font-size: 3.5em;
+      font-size: $font_big;
       font-weight: 100;
       line-height: 1em;
       margin-top: 4px;
@@ -71,18 +70,6 @@
       align-self: flex-start;
     }
   }
-  .others {
-    div p {
-      display: inline-block;
-      margin-bottom: 7px;
-    }
-    div:first-child p {
-      margin-top: 8px;
-    }
-    div:last-child p {
-      margin-bottom: 7px;
-    }
-  }
   .card_control {
     display: flex;
     justify-content: space-between;
@@ -98,5 +85,7 @@
       margin: auto 0;
       padding-top: 1px;
     }
+  }
+  @media screen and (max-width: 425px) {
   }
 }

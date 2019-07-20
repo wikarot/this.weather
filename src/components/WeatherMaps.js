@@ -23,7 +23,7 @@ const MAPS = [
   { id: 5, label: 'Temperatura', ref: ['-40°C', '0°C', '40°C'], icon: 'thermometer' }
 ];
 export const CITY_LABELS = []; // id, label, dot, line, x, y
-const N_MAPS_TO_LOAD = 6; // 1 to 6
+const N_MAPS_TO_LOAD = 1; // 1 to 6
 const DEFAULT_OPTION = 1;
 const SMALL_MEDIA = window.matchMedia('(max-width: 679px)');
 
@@ -93,6 +93,7 @@ export default class WeatherMaps extends Component {
     }
     // every time it mounts...
     document.getElementById('globe_box').appendChild(renderer.domElement); // add renderer canvas to dom
+    document.getElementById('weather_maps_body').style.overflowX = 'visible';
     this.mapCanvas = document.getElementById('map_canvas'); // identify map canvas
     this.setCameraPosition(0, 0);
     this.resetRedererSize(); // resize renderer based on media queries
@@ -130,10 +131,12 @@ export default class WeatherMaps extends Component {
    */
 
   setGlobe() {
+    document.getElementById('weather_maps_body').style.overflowX = 'visible';
     if (this.state.showGlobe !== 'flex') this.setState({ showMap: 'none', showGlobe: 'flex' });
   }
 
   setMap() {
+    document.getElementById('weather_maps_body').style.overflowX = 'hidden';
     if (this.state.showMAp !== 'flex') this.setState({ showGlobe: 'none', showMap: 'flex' });
   }
 
@@ -172,8 +175,9 @@ export default class WeatherMaps extends Component {
   }
 
   resetRendererPixelRatio() {
-    renderer.setPixelRatio(window.devicePixelRatio);
-    if (renderer.getPixelRatio() > 3) renderer.setPixelRatio(3);
+    const DPR = window.devicePixelRatio || 1;
+    if (DPR < 0.5) { renderer.setPixelRatio(0.5); return; }
+    if (DPR > 3) { renderer.setPixelRatio(3); return; }
   }
 
   toggleLights(e) {
@@ -202,13 +206,10 @@ export default class WeatherMaps extends Component {
     this.labelsRaf = requestAnimationFrame(this.updateLabels);
     const W = renderer.domElement.clientWidth;
     const H = renderer.domElement.clientHeight;
-    const showGlobe = this.state.showGlobe;
-    if (showGlobe === 'flex') document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    else document.getElementById('weather_maps_body').style.overflowX = 'hidden';
     // iterate on each label object (THREE & DOM stuff)
     CITY_LABELS.forEach(item => {
       let { label, dot, x, y } = item;
-      if (showGlobe === 'flex') { // Move & show/hide label over the globe canvas
+      if (this.state.showGlobe === 'flex') { // Move & show/hide label over the globe canvas
         dot.updateWorldMatrix(true, false);
         dot.getWorldPosition(VEC);
         VEC.project(camera);
