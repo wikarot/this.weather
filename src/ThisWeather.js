@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Card from './components/Card';
 import WeatherMaps from './components/WeatherMaps';
@@ -6,11 +6,10 @@ import Icon from './components/Icon';
 import Prediction from './components/Prediction';
 import Notification from './components/Notification';
 import ToTopBtn from './components/ToTopBtn';
-import About from './components/About';
+//import About from './components/About';
 import { getPredictions, getUserLocation, getExtras, getWeather } from './js/getFromAPIs';
 import { initSS, cancelSS } from './js/smoothScroll';
 import { suc, alt, err, dbg } from './js/customConsole';
-import CITY_LIST from './apis/city.list.min.json';
 
 /* const PRELOAD_CITIES = [
   'Cairo,EG',             // africa
@@ -29,6 +28,10 @@ import CITY_LIST from './apis/city.list.min.json';
   'Moscow,RU',            // -europa
   'Wellington,NZ',        //- oceania
 ]; */
+
+const LoadingMsg = () => ('');
+
+const About = (lazy(() => (import(/* webpackChunkName: "About" */ './components/About'))));
 
 export default class ThisWeather extends Component {
   constructor(props) {
@@ -54,7 +57,7 @@ export default class ThisWeather extends Component {
     this.fireSearchFromPrediction = this.fireSearchFromPrediction.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     getUserLocation().then(res => {
       if (res > 200)
         err('Error al localizar el dispositivo (error ' + res + ')');
@@ -335,8 +338,8 @@ export default class ThisWeather extends Component {
               {this.state.predictionList.map(item => (
                 <Prediction
                   data={item}
-                  key={item.id}
-                  onClick={this.fireSearchFromPrediction} />
+                  clickHandler={this.fireSearchFromPrediction}
+                  key={item.id} />
               ))}
             </div>
           </div>
@@ -361,9 +364,9 @@ export default class ThisWeather extends Component {
                     fullName={item.fullName}
                     data={item.data}
                     extras={item.extras}
-                    key={item.data.id}
                     update={this.updateCard}
-                    remove={this.removeCard} />
+                    remove={this.removeCard}
+                    key={item.data.id} />
                 ))}
               </div>
               <hr />
@@ -379,14 +382,16 @@ export default class ThisWeather extends Component {
                   {this.state.notificationList.map(item => (
                     <Notification
                       data={item}
-                      key={item.id}
-                      remove={this.removeNotification} />
+                      remove={this.removeNotification}
+                      key={item.id} />
                   ))}
                 </div>
               </div>
             </div>
           )} />
-          <Route path="/this.weather/about" component={About} />
+          <Suspense fallback={<LoadingMsg />}>
+            <Route path="/this.weather/about" component={About} />
+          </Suspense>
           <div id="to_top_btn_box">
             <ToTopBtn />
           </div>

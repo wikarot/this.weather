@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Icon from './Icon';
 
 export default function CustomRadio(props) {
@@ -22,14 +23,11 @@ export default function CustomRadio(props) {
   )
 }
 
-/*
-
-idle props
-
-idWord
-iconWord
-iconClasses
-titleWord
-defaultChk
-
-*/
+CustomRadio.propTypes = {
+  idWord: PropTypes.string.isRequired,
+  iconWord: PropTypes.string.isRequired,
+  groupWord: PropTypes.string.isRequired,
+  iconClasses: PropTypes.arrayOf(PropTypes.string),
+  titleWord: PropTypes.string.isRequired,
+  defaultChk: PropTypes.bool.isRequired
+}

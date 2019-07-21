@@ -49,8 +49,7 @@ export async function getExtras(countryCode) {
       const ITEM = ALL_LIST[i];
       return {
         countryName: ITEM.translations.es,
-        countryNameNative: ITEM.nativeName,
-        timeZone: ITEM.timezones[0]
+        countryNameNative: ITEM.nativeName
       }
     }
   }

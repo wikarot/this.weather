@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import Icon from './Icon';
 import * as THREE from 'three';
 import { SCENE, SPH_RAD, RES } from '../js/threeStuff';
@@ -175,4 +176,33 @@ export default class Card extends Component {
       </section>
     );
   }
+}
+
+Card.propTypes = {
+  fullName: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    //cloud: PropTypes.number.isRequired, // unused
+    coord: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired
+    }).isRequired,
+    countryCode: PropTypes.string.isRequired,
+    weatherId: PropTypes.number.isRequired,
+    desc: PropTypes.string.isRequired,
+    //hum: PropTypes.number.isRequired, // unused
+    icon: PropTypes.string.isRequired,
+    cityName: PropTypes.string.isRequired,
+    temp: PropTypes.number.isRequired,
+    tempMax: PropTypes.number.isRequired,
+    tempMin: PropTypes.number.isRequired,
+    timezone: PropTypes.string.isRequired,
+    //wind: PropTypes.number.isRequired // m/s to km/h // unused
+  }).isRequired,
+  extras: PropTypes.shape({
+    countryName: PropTypes.string.isRequired,
+    countryNameNative: PropTypes.string.isRequired,
+  }).isRequired,
+  update: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 }

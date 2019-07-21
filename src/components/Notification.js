@@ -1,34 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Icon from './Icon';
 
 export default class Notification extends Component {
   constructor(props) {
     super(props);
-    this.iconWord = 'not_';
-    switch (this.props.data.type) {
-      case 'success':
-        this.iconWord += 'success';
-        break;
-      case 'info':
-        this.iconWord += 'info';
-        break;
-      case 'alert':
-        this.iconWord += 'alert';
-        break;
-      case 'error':
-        this.iconWord += 'error';
-        break;
-      default:
-        /* that's bad */
-        break;
-    }
+    this.iconWord = 'not_' + this.props.data.type;
   }
 
   componentDidMount() {
-    this.remove();
+    this.waitAndRemove();
   }
 
-  remove() {
+  waitAndRemove() {
     setTimeout(() => {
       this.props.remove(this.props.data.id);
     }, 4000);
@@ -42,4 +26,13 @@ export default class Notification extends Component {
       </div>
     )
   }
+}
+
+Notification.propTypes = {
+  data: PropTypes.shape({
+    msg: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
+  }).isRequired,
+  remove: PropTypes.func.isRequired
 }

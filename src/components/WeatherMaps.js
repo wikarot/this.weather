@@ -23,7 +23,7 @@ const MAPS = [
   { id: 5, label: 'Temperatura', ref: ['-40°C', '0°C', '40°C'], icon: 'thermometer' }
 ];
 export const CITY_LABELS = []; // id, label, dot, line, x, y
-const N_MAPS_TO_LOAD = 6; // 1 to 6
+const N_MAPS_TO_LOAD = 1; // 1 to 6
 const DEFAULT_OPTION = 1;
 const SMALL_MEDIA = window.matchMedia('(max-width: 679px)');
 

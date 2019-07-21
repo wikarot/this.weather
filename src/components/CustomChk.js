@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Icon from './Icon';
 
 export default function CustomChk(props) {
@@ -16,25 +17,21 @@ export default function CustomChk(props) {
         className="custom_chk"
         type="checkbox"
         defaultChecked={props.defaultChk} />
-      {/* onChange={e => this.togglePlayPause(e)}  */}
       <label className="custom_chk_lbl"
         title={props.titleWord}
         htmlFor={'custom_chk_' + props.idWord} />
       <Icon name={props.iconWordA} classes={[...iconClasses]} />
-      {(props.iconWordB !== undefined) ? (<Icon name={props.iconWordB} classes={[...iconClasses]} />) : null}
+      {(props.iconWordB !== undefined) ?
+        (<Icon name={props.iconWordB} classes={[...iconClasses]} />) : null}
     </div>
   )
 }
 
-/*
-
-idle props
-
-idWord
-iconWordA
-iconWordB
-iconClasses
-titleWord
-defaultChk
-
-*/
+CustomChk.propTypes = {
+  idWord: PropTypes.string.isRequired,
+  iconWordA: PropTypes.string.isRequired,
+  iconWordB: PropTypes.string,
+  iconClasses: PropTypes.arrayOf(PropTypes.string),
+  titleWord: PropTypes.string.isRequired,
+  defaultChk: PropTypes.bool.isRequired
+}

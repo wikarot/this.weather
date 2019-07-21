@@ -197,15 +197,6 @@ a {
   padding: 1px;
   /* &[imhere="true"] {
   } */
-  /* .others {
-    color: $grey_dark;
-    justify-content: space-between;
-    display: flex;
-    div .icon {
-    }
-    div span {
-    }
-  } */
 }
 
 .card div > p,
