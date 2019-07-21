@@ -389,7 +389,7 @@ export default class ThisWeather extends Component {
               </div>
             </div>
           )} />
-          <Suspense fallback={<LoadingMsg />}>
+          <Suspense fallback={''}>
             <Route path="/this.weather/about" component={About} />
           </Suspense>
           <div id="to_top_btn_box">

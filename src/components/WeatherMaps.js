@@ -294,7 +294,7 @@ export default class WeatherMaps extends Component {
           <div id="generic_controls">
             {MAPS.map(option => (
               <CustomRadio
-                idWord={option.id}
+                idWord={String(option.id)}
                 iconWord={option.icon}
                 groupWord={'map_option'}
                 titleWord={option.label}

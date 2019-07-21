@@ -32,7 +32,11 @@ export default class About extends Component {
         <div id="about_rss">
           <div id="about_rss_header">
             <h4><em>Recursos</em></h4>
-            <CustomChk idWord="about_chevron" iconWordA="chevron" titleWord="Expandir/Contraer" />
+            <CustomChk
+              idWord="about_chevron"
+              iconWordA="chevron"
+              titleWord="Expandir/Contraer"
+              defaultChk={false} />
           </div>
           <article id="about_rss_body" expanded={`${this.state.showRss}`}>
             <hr />

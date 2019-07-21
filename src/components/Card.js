@@ -196,7 +196,7 @@ Card.propTypes = {
     temp: PropTypes.number.isRequired,
     tempMax: PropTypes.number.isRequired,
     tempMin: PropTypes.number.isRequired,
-    timezone: PropTypes.string.isRequired,
+    timezone: PropTypes.number.isRequired,
     //wind: PropTypes.number.isRequired // m/s to km/h // unused
   }).isRequired,
   extras: PropTypes.shape({
