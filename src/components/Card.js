@@ -5,9 +5,9 @@ import * as THREE from 'three';
 import { SCENE, SPH_RAD, RES } from '../js/threeStuff';
 import { CITY_LABELS } from './WeatherMaps';
 import { initSS } from '../js/smoothScroll';
-import { not } from '../js/customConsole';
+//import { not } from '../js/customConsole';
 
-const TIME_TO_UPDATE = 20 * 60000; // ms
+//const TIME_TO_UPDATE = 20 * 60000; // ms
 const H = RES / 2;
 const DOT_GEO = new THREE.SphereBufferGeometry(0.001, 3, 2);
 const DOT_MAT = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, precision: "lowp" });

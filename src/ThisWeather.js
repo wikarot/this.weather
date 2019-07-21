@@ -6,7 +6,6 @@ import Icon from './components/Icon';
 import Prediction from './components/Prediction';
 import Notification from './components/Notification';
 import ToTopBtn from './components/ToTopBtn';
-//import About from './components/About';
 import { getPredictions, getUserLocation, getExtras, getWeather } from './js/getFromAPIs';
 import { initSS, cancelSS } from './js/smoothScroll';
 import { suc, alt, err, dbg } from './js/customConsole';
@@ -28,8 +27,6 @@ import { suc, alt, err, dbg } from './js/customConsole';
   'Moscow,RU',            // -europa
   'Wellington,NZ',        //- oceania
 ]; */
-
-const LoadingMsg = () => ('');
 
 const About = (lazy(() => (import(/* webpackChunkName: "About" */ './components/About'))));
 
