@@ -36,9 +36,9 @@ export const WEATHER_CTX_MAT = [ // context, material
 ];
 
 export async function init() {
-  const TEXTURE = new TextureLoader().load('/images/texture-512.png');
-  const SPECULAR = new TextureLoader().load('/images/spec-512.png');
-  const BUMP = new TextureLoader().load('/images/bump-512.jpg');
+  const TEXTURE = new TextureLoader().load('/this.weather/images/texture-512.png');
+  const SPECULAR = new TextureLoader().load('/this.weather/images/spec-512.png');
+  const BUMP = new TextureLoader().load('/this.weather/images/bump-512.jpg');
   TEXTURE.encoding = sRGBEncoding;
   SPECULAR.encoding = sRGBEncoding;
   BUMP.encoding = sRGBEncoding;
