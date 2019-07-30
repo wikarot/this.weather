@@ -1,5 +1,10 @@
-import CITY_LIST from '../apis/city.list.min.json';
-import ALL_LIST from '../apis/all.json';
+//import CITY_LIST from '../apis/city.list.min.json';
+//import ALL_LIST from '../apis/all.json';
+
+let CITY_LIST = undefined;
+(async () => CITY_LIST = await import(/* webpackChunkName: "city_list" */ '../apis/city.list.min.json'))();
+let ALL_LIST = undefined;
+(async () => ALL_LIST = await import(/* webpackChunkName: "all_list" */ '../apis/all.json'))();
 
 const API = 'https://api.openweathermap.org/data/2.5/weather?';
 const API_CITY_NAME_PREFIX = 'q=';
