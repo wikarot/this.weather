@@ -1348,7 +1348,7 @@ html body #root {
 
 #map_box #map_canvas_container #map_canvas {
   position: absolute;
-  background: url(/images/texture-512.png);
+  background: url(/this.weather/images/texture-512.png);
   background-size: contain;
   height: 512px;
   top: -15px;
