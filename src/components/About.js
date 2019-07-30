@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import CustomChk from './CustomChk';
+//import CustomChk from './CustomChk';
 
 export default class About extends Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
     this.state = {
       showRss: false
@@ -13,7 +13,7 @@ export default class About extends Component {
     document.getElementById('custom_chk_about_chevron').onchange = () => {
       this.setState({ showRss: !this.state.showRss });
     }
-  }
+  } */
 
   render() {
     return (
@@ -28,7 +28,7 @@ export default class About extends Component {
         <div id="about_body">
           <p>Un medio de acceso <br /> al estado del tiempo.</p>
         </div>
-        <hr />
+        {/* <hr />
         <div id="about_rss">
           <div id="about_rss_header">
             <h4><em>Recursos</em></h4>
@@ -57,7 +57,7 @@ export default class About extends Component {
               <li>Favicon - <a href="https://realfavicongenerator.net">RealFaviconGenerator</a></li>
             </ul>
           </article>
-        </div>
+        </div> */}
       </article>
     )
   }
