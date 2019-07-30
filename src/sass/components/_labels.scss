@@ -9,14 +9,11 @@
     font-family: "Roboto";
     $grey_dark_dark: #1f1f1f;
     color: $white;
-    cursor: pointer;
     font-size: 12px;
     left: 0;
     padding: 0 4px;
     position: absolute;
-    pointer-events: all;
     z-index: 2;
-    user-select: none;
     text-shadow: -1px -1px 0 $grey_dark_dark, 0 -1px 0 $grey_dark_dark, 1px -1px 0 $grey_dark_dark,
       1px 0 0 $grey_dark_dark, 1px 1px 0 $grey_dark_dark, 0 1px 0 $grey_dark_dark, -1px 1px 0 $grey_dark_dark,
       -1px 0 0 $grey_dark_dark, 0 0 2px $grey_dark_dark;
@@ -34,9 +31,6 @@
       width: 4px;
       height: 4px;
       background-color: $white;
-    }
-    &:hover {
-      text-decoration: underline;
     }
   }
 }

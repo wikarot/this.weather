@@ -797,8 +797,6 @@ footer {
   display: flex;
   height: 48px;
   padding: 0 32px;
-  position: relative;
-  z-index: 1;
 }
 
 footer #footer_content {
@@ -1047,14 +1045,7 @@ main #main_content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   position: relative;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
   -ms-flex-line-pack: center;
       align-content: center;
   -webkit-box-flex: 1;
@@ -1074,7 +1065,6 @@ main #main_content #card_box {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   /* viewport - search_box - hr - nav - border - hr - to_maps_btn - extra PX */
-  min-height: calc(100vh - 64px - 3px - 32px - 1px - 3px - 32px - 1px);
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -1092,20 +1082,6 @@ main #main_content #to_maps_btn {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-}
-
-main #main_content #weather_maps_box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: auto;
-  width: -webkit-min-content;
-  width: -moz-min-content;
-  width: min-content;
-  max-width: 1200px;
-  padding: 16px 16px 48px;
 }
 
 main #main_content #notification_box {
@@ -1138,6 +1114,20 @@ main #main_content #notification_box #notification_content {
   position: sticky;
   top: 0;
   z-index: 3;
+}
+
+main #weather_maps_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: auto;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  max-width: 1200px;
+  padding: 48px 16px;
 }
 
 main #to_top_btn_box {
@@ -1277,17 +1267,11 @@ html body #root {
 #labels .city_label {
   font-family: "Roboto";
   color: #ffffff;
-  cursor: pointer;
   font-size: 12px;
   left: 0;
   padding: 0 4px;
   position: absolute;
-  pointer-events: all;
   z-index: 2;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   text-shadow: -1px -1px 0 #1f1f1f, 0 -1px 0 #1f1f1f, 1px -1px 0 #1f1f1f, 1px 0 0 #1f1f1f, 1px 1px 0 #1f1f1f, 0 1px 0 #1f1f1f, -1px 1px 0 #1f1f1f, -1px 0 0 #1f1f1f, 0 0 2px #1f1f1f;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -1311,10 +1295,6 @@ html body #root {
   width: 4px;
   height: 4px;
   background-color: #ffffff;
-}
-
-#labels .city_label:hover {
-  text-decoration: underline;
 }
 
 #map_box {
@@ -1368,7 +1348,7 @@ html body #root {
 
 #map_box #map_canvas_container #map_canvas {
   position: absolute;
-  background: url(https://res.cloudinary.com/wikarot/image/upload/v1560488304/globe_src/texture.png);
+  background: url(/images/texture-512.png);
   background-size: contain;
   height: 512px;
   top: -15px;

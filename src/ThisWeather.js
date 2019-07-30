@@ -1,13 +1,12 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Card from './components/Card';
-import WeatherMaps from './components/WeatherMaps';
 import Icon from './components/Icon';
 import Prediction from './components/Prediction';
 import Notification from './components/Notification';
 import ToTopBtn from './components/ToTopBtn';
 import { getPredictions, getUserLocation, getExtras, getWeather } from './js/getFromAPIs';
-import { initSS, cancelSS } from './js/smoothScroll';
+import { cancelSS } from './js/smoothScroll';
 import { suc, alt, err, dbg } from './js/customConsole';
 
 /* const PRELOAD_CITIES = [
@@ -29,6 +28,7 @@ import { suc, alt, err, dbg } from './js/customConsole';
 ]; */
 
 const About = (lazy(() => (import(/* webpackChunkName: "About" */ './components/About'))));
+const WeatherMaps = (lazy(() => (import(/* webpackChunkName: "WeatherMaps" */ './components/WeatherMaps'))));
 
 export default class ThisWeather extends Component {
   constructor(props) {
@@ -347,6 +347,9 @@ export default class ThisWeather extends Component {
                 <Link to="/this.weather/">Inicio</Link>
               </li>
               <li>
+                <Link to="/this.weather/weathermaps">Mapas meteorologicos</Link>
+              </li>
+              <li>
                 <Link to="/this.weather/about">Acerca de</Link>
               </li>
             </ul>
@@ -366,14 +369,6 @@ export default class ThisWeather extends Component {
                     key={item.data.id} />
                 ))}
               </div>
-              <hr />
-              <button id="to_maps_btn"
-                onClick={() => initSS(64 + document.getElementById('weather_maps').offsetTop - 16)} >
-                <Icon name="chevron" classes={['chevron_down', 'btn']} />
-              </button>
-              <div id="weather_maps_box">
-                <WeatherMaps />
-              </div>
               <div id="notification_box">
                 <div id="notification_content">
                   {this.state.notificationList.map(item => (
@@ -386,6 +381,9 @@ export default class ThisWeather extends Component {
               </div>
             </div>
           )} />
+          <Suspense fallback={''}>
+            <Route path="/this.weather/weathermaps" component={WeatherMaps} />
+          </Suspense>
           <Suspense fallback={''}>
             <Route path="/this.weather/about" component={About} />
           </Suspense>

@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
-import * as THREE from 'three';
+import { Vector3, Raycaster, PerspectiveCamera, WebGLRenderer, Matrix4, Euler } from 'three';
 import OrbitControls from 'orbit-controls-es6';
 import dragscroll from 'dragscroll';
 import { AMB, createWeatherMap, init, SCENE, SUN, WEATHER_CTX_MAT, RES, LIGHT_ON, LIGHT_OFF } from '../js/threeStuff';
 import CustomRadio from './CustomRadio';
 import CustomChk from './CustomChk';
+import { NEAR, FAR, Z_OFF, city_labels, initDone } from '../js/utils';
 
-let initDone = false;
-export function setInitDoneTrue() {
-  initDone = true;
-  initWeatherMapsObj();
-}
-export const NEAR = 1, FAR = 5, Z_OFF = 3;
-const VEC = new THREE.Vector3();
-const RAY_CASTER = new THREE.Raycaster();
+const VEC = new Vector3();
+const RAY_CASTER = new Raycaster();
 const MAPS = [
   { id: 0, label: 'Terreno', ref: [''], icon: 'terrain' },
   { id: 1, label: 'Nubosidad', ref: ['0%', '100%'], icon: 'cloud' },
@@ -22,38 +17,11 @@ const MAPS = [
   { id: 4, label: 'Viento', ref: ['0m/s', '200m/s'], icon: 'wind' },
   { id: 5, label: 'Temperatura', ref: ['-40°C', '0°C', '40°C'], icon: 'thermometer' }
 ];
-export const CITY_LABELS = []; // id, label, dot, line, x, y
-const N_MAPS_TO_LOAD = 1; // 1 to 6
+const N_MAPS_TO_LOAD = 6; // 1 to 6
 const DEFAULT_OPTION = 1;
 const SMALL_MEDIA = window.matchMedia('(max-width: 679px)');
 
-export let camera;
-let renderer, controls
-
-function initWeatherMapsObj() {
-  camera = new THREE.PerspectiveCamera(45, RES / RES, NEAR, FAR);
-  camera.layers.enable(DEFAULT_OPTION);
-  renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true,
-    powerPreference: 'high-performance',
-    stencil: false,
-  });
-  renderer.setSize(RES, RES);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.gammaFactor = 2.2;
-  renderer.gammaOutput = true;
-  renderer.domElement.id = 'globe_canvas';
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.rotateSpeed = 0.3;
-  controls.autoRotate = false;
-  controls.autoRotateSpeed = 2.0;
-  controls.enablePan = false;
-  controls.enableZoom = false;
-  controls.enableKeys = false;
-  controls.minPolarAngle = Math.PI - Math.PI * .90;
-  controls.maxPolarAngle = Math.PI * .90;
-}
+let camera, renderer, controls;
 
 export default class WeatherMaps extends Component {
   constructor(props) {
@@ -78,7 +46,7 @@ export default class WeatherMaps extends Component {
     this.toggleLights = this.toggleLights.bind(this);
     this.toggleRotation = this.toggleRotation.bind(this);
     this.resetRedererSize = this.resetRedererSize.bind(this);
-    this.resetRendererPixelRatio = this.resetRendererPixelRatio.bind(this);
+    //this.resetRendererPixelRatio = this.resetRendererPixelRatio.bind(this);
     this.updateLabels = this.updateLabels.bind(this);
 
     // Map stuff
@@ -88,8 +56,33 @@ export default class WeatherMaps extends Component {
   async componentDidMount() {
     // most be done only one time
     if (!initDone) {
-      await init(); // wait for three stuff
-      for (let i = 0; i < N_MAPS_TO_LOAD - 1; i++) createWeatherMap(i); // launch weather maps requests
+      // wait for three stuff (globe, weather map, and atmosphere '3D objects')
+      await init();
+      // launch weather maps requests (2D images from OpenWeatherMaps)
+      for (let i = 0; i < N_MAPS_TO_LOAD - 1; i++) createWeatherMap(i);
+      // init local three staff
+      camera = new PerspectiveCamera(45, RES / RES, NEAR, FAR);
+      camera.layers.enable(DEFAULT_OPTION);
+      renderer = new WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance',
+        stencil: false,
+      });
+      renderer.setSize(RES, RES);
+      renderer.setPixelRatio(2);
+      renderer.gammaFactor = 2.2;
+      renderer.gammaOutput = true;
+      renderer.domElement.id = 'globe_canvas';
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.rotateSpeed = 0.3;
+      controls.autoRotate = false;
+      controls.autoRotateSpeed = 2.0;
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.enableKeys = false;
+      controls.minPolarAngle = Math.PI - Math.PI * .90;
+      controls.maxPolarAngle = Math.PI * .90;
     }
     // every time it mounts...
     document.getElementById('globe_box').appendChild(renderer.domElement); // add renderer canvas to dom
@@ -98,8 +91,9 @@ export default class WeatherMaps extends Component {
     this.setCameraPosition(0, 0);
     this.resetRedererSize(); // resize renderer based on media queries
     this.animate(); // init three stuff animation loop
+    city_labels.forEach(item => item.label = document.getElementById('city_label_' + item.id));
     this.updateLabels(); // init labels updating loop
-    window.addEventListener('resize', this.resetRendererPixelRatio, false); // listen for window resize
+    //window.addEventListener('resize', this.resetRendererPixelRatio, false); // listen for window resize
     for (let i = 0; i < 6; i++)  // listen to each weather map option
       document.getElementById('custom_radio_' + i).addEventListener('change', () => { this.setWeatherOption(i); });
     // listen to 'toggle buttons' (actually checkbox and radio)
@@ -168,17 +162,18 @@ export default class WeatherMaps extends Component {
   }
 
   setCameraPosition(alpha, theta) {
-    let matrix = new THREE.Matrix4();
-    matrix.makeRotationFromEuler(new THREE.Euler(alpha, theta, 0, 'YXZ'));
+    let matrix = new Matrix4();
+    matrix.makeRotationFromEuler(new Euler(alpha, theta, 0, 'YXZ'));
     camera.position.set(0, 0, Z_OFF).applyMatrix4(matrix);
     camera.lookAt(0, 0, 0);
   }
 
-  resetRendererPixelRatio() {
+  /* resetRendererPixelRatio() {
     const DPR = window.devicePixelRatio || 1;
     if (DPR < 0.5) { renderer.setPixelRatio(0.5); return; }
     if (DPR > 3) { renderer.setPixelRatio(3); return; }
-  }
+    // renderer.setPixelRatio(window.devicePixelRatio); // Performance in danger :c
+  } */
 
   toggleLights(e) {
     if (e.target.checked === true) {
@@ -207,7 +202,7 @@ export default class WeatherMaps extends Component {
     const W = renderer.domElement.clientWidth;
     const H = renderer.domElement.clientHeight;
     // iterate on each label object (THREE & DOM stuff)
-    CITY_LABELS.forEach(item => {
+    city_labels.forEach(item => {
       let { label, dot, x, y } = item;
       if (this.state.showGlobe === 'flex') { // Move & show/hide label over the globe canvas
         dot.updateWorldMatrix(true, false);
@@ -229,87 +224,102 @@ export default class WeatherMaps extends Component {
 
   render() {
     return (
-      <article id="weather_maps">
-        <div id="weather_maps_header">
-          <h3>
-            <em>{this.state.label}</em>
-          </h3>
-          <CustomRadio
-            idWord="globe_radio"
-            iconWord="globe"
-            groupWord="weather_maps"
-            titleWord="Globo"
-            defaultChk={true}
-            key="custom_radio_key_globe_radio" />
-          <CustomRadio
-            idWord="map_radio"
-            iconWord="map"
-            groupWord="weather_maps"
-            titleWord="Mapa"
-            defaultChk={false}
-            key="custom_radio_key_map_radio" />
-        </div>
-        <hr />
-        <div id="weather_maps_body" className="dragscroll">
-          <div id="globe_box" style={{ display: this.state.showGlobe }} >
-            <div id="globe_shadow"><span></span></div>
-            {/* renderer canvas here */}
-          </div>
-          <div id="map_box" style={{ display: this.state.showMap }} >
-            <div id="map_canvas_container">
-              <canvas id="map_canvas" width={RES} height={RES * .5} />
-            </div>
-          </div>
-          <div id="labels">
-            {/* city_labels here */}
-          </div>
-        </div>
-        <hr />
-        <div id="ref">
-          <div id="ref_data">
-            {MAPS[this.state.option].ref.map(item => (
-              <p key={'ref_data_' + item}>{item}</p>
-            ))}
+      <div id="weather_maps_box">
+        <article id="weather_maps">
+          <div id="weather_maps_header">
+            <h3>
+              <em>{this.state.label}</em>
+            </h3>
+            <CustomRadio
+              idWord="globe_radio"
+              iconWord="globe"
+              groupWord="weather_maps"
+              titleWord="Globo"
+              defaultChk={true}
+              key="custom_radio_key_globe_radio" />
+            <CustomRadio
+              idWord="map_radio"
+              iconWord="map"
+              groupWord="weather_maps"
+              titleWord="Mapa"
+              defaultChk={false}
+              key="custom_radio_key_map_radio" />
           </div>
           <hr />
-          <div id="ref_gradient_bg"></div>
-          <div className={'ref_gradient ref_gradient_' + MAPS[this.state.option].id} >
+          <div id="weather_maps_body" className="dragscroll">
+            <div id="globe_box" style={{ display: this.state.showGlobe }} >
+              <div id="globe_shadow"><span></span></div>
+              {/* renderer canvas here */}
+            </div>
+            <div id="map_box" style={{ display: this.state.showMap }} >
+              <div id="map_canvas_container">
+                <canvas id="map_canvas" width={RES} height={RES * .5} />
+              </div>
+            </div>
+            <div id="labels">
+              {city_labels.map(item => (
+                <Label
+                  id={item.id}
+                  cityName={item.cityName}
+                  key={'city_label_' + item.id} />
+              ))}
+            </div>
           </div>
-        </div>
-        <hr />
-        <div id="weather_maps_control">
-          <div id="globe_controls" style={{ display: this.state.showGlobe }} >
-            <CustomChk
-              idWord="rotation_chk"
-              iconWordA="rotation_360"
-              titleWord="Alternar rotación"
-              defaultChk={false} />
-            <CustomChk
-              idWord="day_night_day_chk"
-              iconWordA="day_night"
-              iconWordB="day"
-              titleWord="Alternar iluminación"
-              defaultChk={false} />
+          <hr />
+          <div id="ref">
+            <div id="ref_data">
+              {MAPS[this.state.option].ref.map(item => (
+                <p key={'ref_data_' + item}>{item}</p>
+              ))}
+            </div>
+            <hr />
+            <div id="ref_gradient_bg"></div>
+            <div className={'ref_gradient ref_gradient_' + MAPS[this.state.option].id} >
+            </div>
           </div>
-          <div id="generic_controls">
-            {MAPS.map(option => (
-              <CustomRadio
-                idWord={String(option.id)}
-                iconWord={option.icon}
-                groupWord={'map_option'}
-                titleWord={option.label}
-                defaultChk={option.id === 1 ? true : false}
-                key={'custom_radio_key_' + option.id} />
-            ))}
+          <hr />
+          <div id="weather_maps_control">
+            <div id="globe_controls" style={{ display: this.state.showGlobe }} >
+              <CustomChk
+                idWord="rotation_chk"
+                iconWordA="rotation_360"
+                titleWord="Alternar rotación"
+                defaultChk={false} />
+              <CustomChk
+                idWord="day_night_day_chk"
+                iconWordA="day_night"
+                iconWordB="day"
+                titleWord="Alternar iluminación"
+                defaultChk={false} />
+            </div>
+            <div id="generic_controls">
+              {MAPS.map(option => (
+                <CustomRadio
+                  idWord={String(option.id)}
+                  iconWord={option.icon}
+                  groupWord={'map_option'}
+                  titleWord={option.label}
+                  defaultChk={option.id === 1 ? true : false}
+                  key={'custom_radio_key_' + option.id} />
+              ))}
+            </div>
           </div>
-        </div>
-        <div id="mark_box" style={{ display: this.state.showMap }} >
-          <div id="mark_content">
-            <div id="mark_left"></div>
-            <div id="mark_right"></div>
+          <div id="mark_box" style={{ display: this.state.showMap }} >
+            <div id="mark_content">
+              <div id="mark_left"></div>
+              <div id="mark_right"></div>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     )
   }
+}
+
+function Label(props) {
+  return (
+    <div id={'city_label_' + props.id} className={'city_label'} >
+      {props.cityName}
+    </div>
+  )
 }

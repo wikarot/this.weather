@@ -7,9 +7,7 @@ main {
   min-width: min-content;
   #main_content {
     display: flex;
-    flex-direction: column;
     position: relative;
-    justify-content: flex-start;
     align-content: center;
     flex-grow: 1;
     width: 100%;
@@ -19,7 +17,7 @@ main {
       display: flex;
       flex-wrap: wrap;
       /* viewport - search_box - hr - nav - border - hr - to_maps_btn - extra PX */
-      min-height: calc(100vh - 64px - 3px - 32px - 1px - 3px - 32px - 1px);
+      //min-height: calc(100vh - 64px - 3px - 32px - 1px - 48px);
       justify-content: center;
       margin: 0 auto;
       max-width: 1200px;
@@ -30,14 +28,6 @@ main {
     #to_maps_btn {
       @include square(32px);
       align-self: center;
-    }
-    #weather_maps_box {
-      display: flex;
-      box-sizing: border-box;
-      margin: auto;
-      width: min-content;
-      max-width: 1200px;
-      padding: 16px 16px 48px;
     }
     #notification_box {
       bottom: 0;
@@ -59,6 +49,14 @@ main {
         z-index: 3;
       }
     }
+  }
+  #weather_maps_box {
+    display: flex;
+    box-sizing: border-box;
+    margin: auto;
+    width: min-content;
+    max-width: 1200px;
+    padding: 48px 16px;
   }
   #to_top_btn_box {
     bottom: 0;

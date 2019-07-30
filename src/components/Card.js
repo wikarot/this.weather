@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import {
+  SphereBufferGeometry, MeshBasicMaterial, LineBasicMaterial, Matrix4,
+  Euler, Math as THREE_MATH, Vector3, Geometry, Line, Mesh
+} from 'three';
 import Icon from './Icon';
-import * as THREE from 'three';
 import { SCENE, SPH_RAD, RES } from '../js/threeStuff';
-import { CITY_LABELS } from './WeatherMaps';
-import { initSS } from '../js/smoothScroll';
+import { city_labels, removeFromCityLabels } from '../js/utils';
 //import { not } from '../js/customConsole';
 
 //const TIME_TO_UPDATE = 20 * 60000; // ms
 const H = RES / 2;
-const DOT_GEO = new THREE.SphereBufferGeometry(0.001, 3, 2);
-const DOT_MAT = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, precision: "lowp" });
-const LINE_MAT = new THREE.LineBasicMaterial({ fog: false, color: '#b4b4b4' });
+const DOT_GEO = new SphereBufferGeometry(0.001, 3, 2);
+const DOT_MAT = new MeshBasicMaterial({ transparent: true, opacity: 0, precision: "lowp" });
+const LINE_MAT = new LineBasicMaterial({ fog: false, color: '#b4b4b4' });
 
 export default class Card extends Component {
   constructor(props) {
@@ -38,14 +40,10 @@ export default class Card extends Component {
     this.createTag = this.createTag.bind(this);
   }
 
-  componentWillMount() {
-    clearInterval(this.state.updateTimer);
-    clearInterval(this.state.timeTimer);
-  }
-
   componentDidMount() {
     this.getTime();
-    this.createTag();
+    const I = city_labels.map(item => item.id).indexOf(this.id);
+    if (I < 0) this.createTag();
     this.setState({
       timeTimer: setInterval(() => {
         this.getTime()
@@ -59,13 +57,6 @@ export default class Card extends Component {
   }
 
   componentWillUnmount() {
-    let dot, line;
-    CITY_LABELS.forEach(item => {
-      if (item.id === this.id) { dot = item.dot; line = item.line; }
-    });
-    SCENE.remove(dot, line); // remove it from the scene
-    CITY_LABELS.filter(item => item.id !== this.id); // remove it from the "list"
-    document.getElementById('city_label_' + this.id).remove(); // remove it from the DOM
     clearInterval(this.state.updateTimer);
     clearInterval(this.state.timeTimer);
   }
@@ -86,32 +77,22 @@ export default class Card extends Component {
   }
 
   createTag() {
-    let lbl = document.createElement('div');
-    lbl.textContent = this.props.data.cityName;
-    lbl.className = 'city_label';
-    lbl.id = 'city_label_' + this.id;
-    document.getElementById('labels').appendChild(lbl);
-    lbl.onclick = () => {
-      const offsetTop = document.getElementById('card_' + this.id).offsetTop;
-      initSS(100 + offsetTop - 16); // 100 header and 16 card margin
-    };
-
     // Rotation matrix
-    const MTX = new THREE.Matrix4();
+    const MTX = new Matrix4();
     const { lat, lon } = this.props.data.coord;
-    MTX.makeRotationFromEuler(new THREE.Euler(
-      THREE.Math.degToRad(-lat), // X axe, horizontal rotation
-      THREE.Math.degToRad(+lon), // Y axe, Vectical rotation
+    MTX.makeRotationFromEuler(new Euler(
+      THREE_MATH.degToRad(-lat), // X axe, horizontal rotation
+      THREE_MATH.degToRad(+lon), // Y axe, Vectical rotation
       0, 'YXZ'));
     // Invisible dot to hold the label position
-    const DOT = new THREE.Mesh(DOT_GEO, DOT_MAT);
+    const DOT = new Mesh(DOT_GEO, DOT_MAT);
     DOT.name = this.id;
     DOT.position.set(0, 0, SPH_RAD * 1.4).applyMatrix4(MTX);
-    const LINE_GEO = new THREE.Geometry();
+    const LINE_GEO = new Geometry();
     LINE_GEO.vertices.push(
-      new THREE.Vector3(0, 0, 0),
-      new THREE.Vector3(0, 0, SPH_RAD * 1.4).applyMatrix4(MTX));
-    const LINE = new THREE.Line(LINE_GEO, LINE_MAT);
+      new Vector3(0, 0, 0),
+      new Vector3(0, 0, SPH_RAD * 1.4).applyMatrix4(MTX));
+    const LINE = new Line(LINE_GEO, LINE_MAT);
 
     // Add line and dot to global scene
     SCENE.add(DOT, LINE);
@@ -119,7 +100,15 @@ export default class Card extends Component {
     const X = (180 + lon) / 360 * RES;
     const Y = -(lat * (H / 180)) + H * 0.5;
     // Add a city name label to labels public container
-    CITY_LABELS.push({ id: this.id, label: lbl, dot: DOT, line: LINE, x: X, y: Y });
+    city_labels.push({
+      id: this.id, // 'city_label_' + card id
+      cityName: this.props.data.cityName, // label text content
+      label: undefined,
+      dot: DOT,  // the 3D position holder object
+      line: LINE, // a line from the center of the earth to the dot
+      x: X, // 2D map X coordinate
+      y: Y // 2D map Y coordinate
+    });
   }
 
   update() {
@@ -127,6 +116,12 @@ export default class Card extends Component {
   }
 
   remove() {
+    const I = city_labels.map(item => item.id).indexOf(this.id);
+    const DOT = city_labels[I].dot;
+    const LINE = city_labels[I].line;
+    SCENE.remove(DOT, LINE); // remove it from the scene
+    removeFromCityLabels(this.id);
+    //document.getElementById('city_label_' + this.id).remove(); // remove it from the DOM
     this.props.remove(this.id, this.props.fullName);
   }
 
