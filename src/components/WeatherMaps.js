@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Vector3, Raycaster, PerspectiveCamera, WebGLRenderer, Matrix4, Euler } from 'three';
 import OrbitControls from 'orbit-controls-es6';
 import dragscroll from 'dragscroll';
-import { AMB, createWeatherMap, init, SCENE, SUN, WEATHER_CTX_MAT, RES, LIGHT_ON, LIGHT_OFF } from '../js/threeStuff';
+import { AMB, createWeatherMap, init, SUN, WEATHER_CTX_MAT, LIGHT_ON, LIGHT_OFF } from '../js/threeStuff';
+import SCENE, { NEAR, FAR, Z_OFF, city_labels, initDone, RES } from '../js/threeStuffUtils';
 import CustomRadio from './CustomRadio';
 import CustomChk from './CustomChk';
-import { NEAR, FAR, Z_OFF, city_labels, initDone } from '../js/utils';
 
 const VEC = new Vector3();
 const RAY_CASTER = new Raycaster();
@@ -17,7 +17,7 @@ const MAPS = [
   { id: 4, label: 'Viento', ref: ['0m/s', '200m/s'], icon: 'wind' },
   { id: 5, label: 'Temperatura', ref: ['-40°C', '0°C', '40°C'], icon: 'thermometer' }
 ];
-const N_MAPS_TO_LOAD = 6; // 1 to 6
+const N_MAPS_TO_LOAD = 1; // 1 to 6
 const DEFAULT_OPTION = 1;
 const SMALL_MEDIA = window.matchMedia('(max-width: 679px)');
 

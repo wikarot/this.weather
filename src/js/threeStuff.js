@@ -1,10 +1,10 @@
 import {
   TextureLoader, sRGBEncoding, SphereBufferGeometry, Math as THREE_MATH,
-  Scene, AmbientLight, DirectionalLight, Fog, Mesh, Euler, MeshPhongMaterial,
+  AmbientLight, DirectionalLight, Fog, Mesh, Euler, MeshPhongMaterial,
   Color, Matrix4, CanvasTexture, DoubleSide
 } from 'three';
+import SCENE, { Z_OFF, setInitDone, SPH_RAD, RES } from './threeStuffUtils';
 import { suc, dbg } from './customConsole';
-import { Z_OFF, setInitDone } from './utils';
 
 const merToEqrWorker = new Worker('mercatorToEquirectangular.js');
 const URL = {
@@ -14,9 +14,7 @@ const URL = {
 };
 const MAP = ['clouds_new', 'precipitation_new', 'pressure_new', 'wind_new', 'temp_new'];
 const SPH_SUB_DIV = 64; // sphere sub divisions
-export const SPH_RAD = 0.825; // sphere radius
 const SPH_SCALE = 1.006; // for atmosphere and weather
-export const RES = 512; // weather map resolution
 const T = 2; // tiles by side (total tiles = T * T)
 const T_SIZE = RES / T;
 export const LIGHT_ON = 0.78;
@@ -24,7 +22,6 @@ export const LIGHT_OFF = 0.015;
 const BASE_SPH_GEO = new SphereBufferGeometry(SPH_RAD, SPH_SUB_DIV, SPH_SUB_DIV);
 BASE_SPH_GEO.rotateY(THREE_MATH.degToRad(-90)); // horizontal rotation offset correction
 
-export const SCENE = new Scene();
 export const AMB = new AmbientLight(0xffffff, LIGHT_OFF);
 export const SUN = new DirectionalLight(0xffffff, LIGHT_ON);
 export const WEATHER_CTX_MAT = [ // context, material

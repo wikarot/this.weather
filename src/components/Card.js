@@ -5,8 +5,7 @@ import {
   Euler, Math as THREE_MATH, Vector3, Geometry, Line, Mesh
 } from 'three';
 import Icon from './Icon';
-import { SCENE, SPH_RAD, RES } from '../js/threeStuff';
-import { city_labels, removeFromCityLabels } from '../js/utils';
+import SCENE, { city_labels, removeFromCityLabels, SPH_RAD, RES } from '../js/threeStuffUtils';
 //import { not } from '../js/customConsole';
 
 //const TIME_TO_UPDATE = 20 * 60000; // ms
