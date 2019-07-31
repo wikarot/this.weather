@@ -1,7 +1,6 @@
 let CITIES = undefined; // OpenWeatherMaps city (weather stations) list
 (async () => {
-  CITIES = await import(/* webpackChunkName: "city_list" */ '../apis/city.list.min.json');
-  console.dir(CITIES);
+  CITIES = await import(/* webpackChunkName: "city_list" */ '../apis/city.json');
 })();
 
 /* CITIES shape: 
@@ -13,8 +12,7 @@ let CITIES = undefined; // OpenWeatherMaps city (weather stations) list
 
 let COUNTRIES = undefined;  // REST Countries country list
 (async () => {
-  COUNTRIES = await import(/* webpackChunkName: "all_list" */ '../apis/all.specific.min.json');
-  console.dir(COUNTRIES);
+  COUNTRIES = await import(/* webpackChunkName: "all_list" */ '../apis/country.json');
 })();
 
 /* COUNTRIES shape:
