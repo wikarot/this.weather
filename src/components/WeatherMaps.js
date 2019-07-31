@@ -267,14 +267,15 @@ export default class WeatherMaps extends Component {
           </div>
           <hr />
           <div id="ref">
-            <div id="ref_data">
+            <div id="ref_data" title="Referencia de magnitudes y valores">
               {MAPS[this.state.option].ref.map(item => (
                 <p key={'ref_data_' + item}>{item}</p>
               ))}
             </div>
             <hr />
             <div id="ref_gradient_bg"></div>
-            <div className={'ref_gradient ref_gradient_' + MAPS[this.state.option].id} >
+            <div className={'ref_gradient ref_gradient_' + MAPS[this.state.option].id}
+              title="Referencia de colores">
             </div>
           </div>
           <hr />

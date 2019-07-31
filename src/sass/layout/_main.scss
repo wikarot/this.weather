@@ -16,18 +16,11 @@ main {
       box-sizing: border-box;
       display: flex;
       flex-wrap: wrap;
-      /* viewport - search_box - hr - nav - border - hr - to_maps_btn - extra PX */
-      //min-height: calc(100vh - 64px - 3px - 32px - 1px - 48px);
       justify-content: center;
       margin: 0 auto;
       max-width: 1200px;
-      //min-height: fit-content;
       padding: 48px 16px;
       width: fit-content;
-    }
-    #to_maps_btn {
-      @include square(32px);
-      align-self: center;
     }
     #notification_box {
       bottom: 0;
@@ -84,9 +77,6 @@ main {
         #card_box {
           padding: 16px;
           min-height: unset;
-        }
-        #to_maps_btn {
-          display: none;
         }
         #weather_maps_box {
           padding: 16px;

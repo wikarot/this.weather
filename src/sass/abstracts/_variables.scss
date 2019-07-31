@@ -1,9 +1,9 @@
 $white: #ffffff; // app bg
-$grey_light: #fbfbfb; // relief bg
-$grey_light_transparent: #0000000c; // border and shadows
-$grey_dark: #b5b5b5; // detail
-$grey_dark_dark: #6b6b6b; // color
-$grey_dark_dark_transparent: #00000090; // special shadows
+$grey_light: hsl(0, 0%, 97%); // relief bg
+$grey_light_transparent: #00000012; // border and shadows
+$grey_dark: hsl(0, 0%, 55%); // detail
+$grey_dark_dark: hsl(0, 0%, 15%); // color
+$grey_dark_dark_transparent: #00000086; // special shadows
 $s: #8bb8ea; // selected predition
 $logo_color: #8bb8ea;
 

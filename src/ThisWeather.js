@@ -347,7 +347,7 @@ export default class ThisWeather extends Component {
                 <Link to="/this.weather/">Inicio</Link>
               </li>
               <li>
-                <Link to="/this.weather/weathermaps">Mapas meteorologicos</Link>
+                <Link to="/this.weather/weathermaps">Mapas meteorológicos</Link>
               </li>
               <li>
                 <Link to="/this.weather/about">Acerca de</Link>
