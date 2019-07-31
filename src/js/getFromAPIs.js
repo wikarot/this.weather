@@ -65,6 +65,7 @@ export async function getPredictions(inputName) {
 }
 
 export async function getExtras(countryCode) {
+  console.dir(COUNTRIES)
   for (let i = 0; i < 250; i++) {
     if (COUNTRIES[i].d === countryCode) {
       const ITEM = COUNTRIES[i];
