@@ -405,7 +405,7 @@ export default class ThisWeather extends Component {
             </div>
             <div id="cc">
               <span>
-                <p>Copyright 2019 <a href="https://github.com/Wikarot">Leo de S.L.F</a></p>
+                <p>Copyright 2019 <a href="https://github.com/Wikarot">Leonardo de S.L.F</a></p>
               </span>
             </div>
           </div>
