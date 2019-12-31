@@ -331,7 +331,7 @@ export default class ThisWeather extends Component {
               onFocus={e => this.inputChanged(e)}
               autoComplete="off"
               alt="Buscar una cuidad" />
-            <div id="prediction_box" >
+            <div id="prediction_box">
               {this.state.predictionList.map(item => (
                 <Prediction
                   data={item}
