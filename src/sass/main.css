@@ -552,7 +552,7 @@ a {
   max-width: -webkit-max-content;
   max-width: -moz-max-content;
   max-width: max-content;
-  overflow-x: visible;
+  overflow-x: scroll;
   /* #globe_box {
     } */
   /* #map_box {
@@ -595,10 +595,9 @@ a {
 }
 
 #weather_maps #mark_box {
-  height: 512px;
+  top: 36px;
   pointer-events: none;
   position: absolute;
-  bottom: calc(1px + 32px + 4px + 18px + (3px * 3));
   width: 512px;
   z-index: 2;
 }
@@ -644,7 +643,6 @@ a {
 #weather_maps #mark_box #mark_content {
   position: relative;
   width: 512px;
-  height: 512px;
 }
 
 #weather_maps #mark_box #mark_content #mark_left,
@@ -666,7 +664,7 @@ a {
 
 #weather_maps #mark_box #mark_content #mark_left {
   background: -webkit-gradient(linear, left top, right top, from(#f7f7f7), to(transparent));
-  background: linear-gradient(to right, #f7f7f7 0%, transparent 100%);
+  background: linear-gradient(to right, #f7f7f7, transparent 100%);
   left: 14px;
   width: 0px;
 }
@@ -677,7 +675,7 @@ a {
 
 #weather_maps #mark_box #mark_content #mark_right {
   background: -webkit-gradient(linear, right top, left top, from(#f7f7f7), to(transparent));
-  background: linear-gradient(to left, #f7f7f7 0%, transparent 100%);
+  background: linear-gradient(to left, #f7f7f7, transparent 100%);
   right: 14px;
   width: 32px;
 }
@@ -1288,8 +1286,6 @@ html body #root {
   overflow: hidden;
   width: 1024px;
   margin: 14px;
-  cursor: -webkit-grab;
-  cursor: grab;
 }
 
 #map_box #map_canvas_container:active {

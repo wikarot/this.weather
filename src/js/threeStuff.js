@@ -220,7 +220,6 @@ merToEqrWorker.onmessage = (e) => {
 }
 
 /*
-
 LAYERS | NAME
 ---
 0 phisic globe
@@ -229,5 +228,4 @@ LAYERS | NAME
 3 pressure
 4 wind
 5 temperature
-
 */

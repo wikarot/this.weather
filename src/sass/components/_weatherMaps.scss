@@ -21,7 +21,7 @@
   #weather_maps_body.dragscroll {
     position: relative;
     max-width: max-content;
-    overflow-x: visible;
+    overflow-x: scroll;
     /* #globe_box {
     } */
     /* #map_box {
@@ -50,10 +50,9 @@
   }
   #mark_box {
     $size: 512px;
-    height: $size;
+    top: 36px; // aprox. header's size
     pointer-events: none;
     position: absolute;
-    bottom: calc(1px + 32px + 4px + 18px + (3px * 3)); // padding, btns, ref gradient, ref data, hrs
     width: $size;
     z-index: 2;
     @media screen and (min-width: 1200px) {
@@ -86,10 +85,10 @@
       }
     }
     #mark_content {
-      $gradient_body: $grey_light 0%, transparent 100%;
+      //$gradient_body: $grey_light 0%, transparent 100%;
+      $gradient_body: $grey_light, transparent 100%;
       position: relative;
       width: $size;
-      height: $size;
       #mark_left,
       #mark_right {
         position: absolute;

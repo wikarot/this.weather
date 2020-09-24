@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Vector3, Raycaster, PerspectiveCamera, WebGLRenderer, Matrix4, Euler } from 'three';
 import OrbitControls from 'orbit-controls-es6';
-import dragscroll from 'dragscroll';
 import CustomRadio from './CustomRadio';
 import CustomChk from './CustomChk';
 import { AMB, createWeatherMap, init, SUN, WEATHER_CTX_MAT, LIGHT_ON, LIGHT_OFF } from '../js/threeStuff';
@@ -17,8 +16,8 @@ const MAPS = [
   { id: 4, label: 'Viento', ref: ['0m/s', '200m/s'], icon: 'wind' },
   { id: 5, label: 'Temperatura', ref: ['-40°C', '0°C', '40°C'], icon: 'thermometer' }
 ];
-const N_MAPS_TO_LOAD = 1; // 1 to 6
-const DEFAULT_OPTION = 1;
+const N_MAPS_TO_LOAD = 6; // 1 to 6
+const DEFAULT_OPTION = 0;
 const SMALL_MEDIA = window.matchMedia('(max-width: 679px)');
 
 let camera, renderer, controls;
@@ -86,7 +85,20 @@ export default class WeatherMaps extends Component {
     }
     // every time it mounts...
     document.getElementById('globe_box').appendChild(renderer.domElement); // add renderer canvas to dom
-    document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
+    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
     this.mapCanvas = document.getElementById('map_canvas'); // identify map canvas
     this.setCameraPosition(0, 0);
     this.resetRedererSize(); // resize renderer based on media queries
@@ -111,7 +123,34 @@ export default class WeatherMaps extends Component {
       document.getElementById('mark_right').style.width = 32 - (32 * SCROLLED) + 'px';
     });
     SMALL_MEDIA.addListener(this.resetRedererSize);
-    dragscroll.reset(); // update dragscroll listeners
+
+    /* 
+    
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
+    
+    */
+
   }
 
   componentWillUnmount() {
@@ -130,7 +169,7 @@ export default class WeatherMaps extends Component {
   }
 
   setMap() {
-    document.getElementById('weather_maps_body').style.overflowX = 'hidden';
+    document.getElementById('weather_maps_body').style.overflowX = 'scroll';
     if (this.state.showMAp !== 'flex') this.setState({ showGlobe: 'none', showMap: 'flex' });
   }
 

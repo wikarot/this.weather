@@ -27,6 +27,9 @@ import { suc, alt, err, dbg } from './js/customConsole';
   'Wellington,NZ',        //- oceania
 ]; */
 
+/* webpackChunkName: "WeatherMaps" */
+/* webpackPreload: true */
+
 const About = (lazy(() => (import(/* webpackChunkName: "About" */ './components/About'))));
 const WeatherMaps = (lazy(() => (import(/* webpackChunkName: "WeatherMaps" */ './components/WeatherMaps'))));
 
