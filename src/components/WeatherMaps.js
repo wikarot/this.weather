@@ -86,19 +86,6 @@ export default class WeatherMaps extends Component {
     // every time it mounts...
     document.getElementById('globe_box').appendChild(renderer.domElement); // add renderer canvas to dom
     //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
-    //document.getElementById('weather_maps_body').style.overflowX = 'visible';
     this.mapCanvas = document.getElementById('map_canvas'); // identify map canvas
     this.setCameraPosition(0, 0);
     this.resetRedererSize(); // resize renderer based on media queries
@@ -123,34 +110,6 @@ export default class WeatherMaps extends Component {
       document.getElementById('mark_right').style.width = 32 - (32 * SCROLLED) + 'px';
     });
     SMALL_MEDIA.addListener(this.resetRedererSize);
-
-    /* 
-    
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE SCROLL MAP HERE
-    
-    */
-
   }
 
   componentWillUnmount() {
